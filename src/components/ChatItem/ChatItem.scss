@@ -1,0 +1,100 @@
+@import '../../utils/vars.scss';
+
+.chat {
+  &__container {
+    width: 327px;
+    height: 81px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    justify-content: center;
+    padding: 17px;
+
+    &--selected {
+      border-radius: 15px;
+      background: $default-light-blue;
+    }
+
+    &--unselected {
+      background: #fff;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 48px;
+    background: url(../../images/avatar.svg), lightgray 50% / cover no-repeat;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 17px;
+    }
+  }
+
+  &__title {
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+
+    &--selected {
+      color: #fff;
+    }
+
+    &--unselected {
+      color: #030303;
+    }
+  }
+
+  &__last__message {
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    align-self: self-start;
+
+    &--selected {
+      color: #fff;
+    }
+
+    &--unselected {
+      color: #7C7C7D;
+    }
+  }
+
+  &__time {
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &--selected {
+      color: #fff;
+    }
+
+    &--unselected {
+      color: #686768;
+    }
+  }
+}
