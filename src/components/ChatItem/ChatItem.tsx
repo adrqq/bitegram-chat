@@ -2,6 +2,7 @@ import React from "react";
 import "./ChatItem.scss";
 import classNames from "classnames";
 
+
 const ChatItem = () => {
   const selected = true;
 
@@ -12,7 +13,7 @@ const ChatItem = () => {
         "chat__container--unselected": !selected,
       })}
     >
-      <div className="chat__item">
+      <div className="chat_item">
         <div className="chat__info__wrapper">
           <img className="chat__avatar" />
 
