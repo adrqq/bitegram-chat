@@ -1,5 +1,5 @@
 import React from "react";
-import "./ChatItem.scss";
+import s from "./ChatItem.module.scss";
 import classNames from "classnames";
 
 const ChatItem = () => {

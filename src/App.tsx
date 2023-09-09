@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.scss';
 import ChatItem from './components/ChatItem/ChatItem';
 import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="s.app">
       <Sidebar />
 
       <ChatItem />
