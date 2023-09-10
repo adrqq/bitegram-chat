@@ -1,0 +1,18 @@
+.archived_bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &__icon {
+    padding-left: 5px;
+  }
+
+  &__text {
+    color: #709CE6;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 13px;
+  }
+}

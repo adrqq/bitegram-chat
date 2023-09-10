@@ -1,0 +1,28 @@
+// write mixin that hides scrollbar 
+
+@mixin hideScrollbar {
+
+  /* WebKit (Safari, Chrome) */
+  &::-webkit-scrollbar {
+    width: 0.1rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  /* Microsoft Edge and Internet Explorer */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* Standard CSS properties (fallback for other browsers) */
+  overflow: auto;
+  -ms-overflow-style: none;
+  /* Hide scrollbar in IE */
+  scrollbar-width: none;
+  /* Hide scrollbar in Firefox */
+}

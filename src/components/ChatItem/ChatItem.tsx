@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import s from './ChatItem.module.scss';
 import classNames from 'classnames';
 
-const ChatItem: FC = () => {
+export const ChatItem: FC = () => {
   const selected = true;
 
   return (
@@ -51,5 +51,3 @@ const ChatItem: FC = () => {
     </button >
   );
 };
-
-export default ChatItem; // Export the component so you can use it in other files
