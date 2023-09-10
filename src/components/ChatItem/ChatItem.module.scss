@@ -1,4 +1,4 @@
-@import '../../utils/vars.scss';
+@import '../../utils/vars.module.scss';
 
 .chat {
   &__container {
@@ -13,13 +13,14 @@
     margin-left: 300px;
     align-self: center;
 
-    &--selected {
+    &__selected {
       border-radius: 15px;
       background: $default-light-blue;
     }
 
-    &--unselected {
+    &__unselected {
       background: #fff;
+
       &:hover {
         background-color: #f5f5f5;
       }
@@ -60,11 +61,11 @@
     font-weight: 800;
     line-height: normal;
 
-    &--selected {
+    &__selected {
       color: #fff;
     }
 
-    &--unselected {
+    &__unselected {
       color: #030303;
     }
   }
@@ -77,11 +78,11 @@
     line-height: normal;
     align-self: self-start;
 
-    &--selected {
+    &__selected {
       color: #fff;
     }
 
-    &--unselected {
+    &__unselected {
       color: #7C7C7D;
     }
   }
@@ -93,12 +94,12 @@
     font-weight: 500;
     line-height: normal;
 
-    &--selected {
+    &__selected {
       color: #fff;
     }
 
-    &--unselected {
-      color: #686768;
+    &__unselected {
+      color: #534c53;
     }
   }
 }

@@ -1,15 +1,12 @@
-import React from 'react';
-import s from './App.module.scss';
-import ChatItem from './components/ChatItem/ChatItem';
-import Sidebar from './components/Sidebar/Sidebar';
+import React, { ReactElement } from 'react';
+import { Router } from './routes'
+import './App.module.scss'
 
-function App() {
+function App(): ReactElement {
   return (
-    <div className="s.app">
-      <Sidebar />
-
-      <ChatItem />
-    </div>
+    <>
+      <Router />
+    </>
   );
 }
 
