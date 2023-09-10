@@ -1,0 +1,83 @@
+@import '../../../utils/vars.module.scss';
+
+.chat_header {
+  background-color: $default-white;
+
+  &__wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 48px;
+    background: url("../../../images/avatar.svg"), 50% / cover no-repeat;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__nickname {
+    font-family: $main-font;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+
+  &__status {
+    font-family: $main-font;
+    color: #696969;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .black_row {
+    width: 1px;
+    height: 100%;
+    background: #B4B4B4;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+
+    &_camera {
+      background-image: url("../../../images/camera-logo.svg");
+    }
+
+    &_call {
+      background-image: url("../../../images/phone-logo.svg");
+    }
+
+    &_search {
+      background-image: url("../../../images/search-logo.svg");
+    }
+
+    &_menu {
+      background-image: url("../../../images/menu-logo.svg");
+    }
+  }
+}
