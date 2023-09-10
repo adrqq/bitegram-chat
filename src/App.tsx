@@ -5,10 +5,10 @@ import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
-    <div className="s.app">
+    <div className={s.app}>
       <Sidebar />
 
-      <ChatItem />
+      {/* <ChatItem /> */}
     </div>
   );
 }
