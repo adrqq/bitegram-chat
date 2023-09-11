@@ -54,7 +54,7 @@ const Sidebar: FC = () => {
           />
         </div>
 
-        <div className={s.blackLine} />
+        <div className={s.black_line} />
 
         <div
           className={classNames(
