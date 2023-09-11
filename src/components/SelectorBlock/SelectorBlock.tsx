@@ -42,6 +42,17 @@ export const SelectorBlock: FC<Props> = () => {
       <ul className={s.chats_list}>
         <ChatItem />
         <ChatItem />
+      </ul>
+
+      <div className={s.selector_block__all}>
+        <h2 className={s.selector_block__subtitle}>
+          All Chats
+        </h2>
+      </div>
+
+      <ul className={s.chats_list}>
+        <ChatItem />
+        <ChatItem />
         <ChatItem />
         <ChatItem />
         <ChatItem />

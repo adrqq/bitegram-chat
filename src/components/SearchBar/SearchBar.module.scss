@@ -15,7 +15,12 @@
   }
 
   &__funnel_icon {
-    padding: 13px 26px 13px 0;
+    padding: 13px 20px 13px 0;
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    outline: inherit;
   }
 
   &__input {
@@ -33,5 +38,14 @@
     &::placeholder {
       color: #709CE6;
     }
+  }
+
+  &__button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
   }
 }

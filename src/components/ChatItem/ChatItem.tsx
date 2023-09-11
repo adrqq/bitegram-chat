@@ -12,7 +12,7 @@ export const ChatItem: FC = () => {
         !selected && s.chat__container__unselected
       )}
     >
-      <div className={s.chat__item}>
+      <div className={s.chat_item}>
         <div className={s.chat__info__wrapper}>
           <div
             className={s.chat__avatar}

@@ -9,16 +9,21 @@ interface SearchBarProps { }
 export const SearchBar: FC<SearchBarProps> = () => (
   <div className={s.search_bar}>
     <label htmlFor="search" className={s.search_bar__search_icon}>
-      <img src={searchIcon} alt="search" />
+      <button
+        className={s.search_bar__button}
+        type="button"
+      >
+        <img src={searchIcon} alt="search" />
+      </button>
     </label>
     <input
       type="text"
       placeholder="Search"
       className={s.search_bar__input}
-      id='search'
+      id="search"
     />
-    <label htmlFor="search" className={s.search_bar__funnel_icon}>
+    <button className={s.search_bar__funnel_icon}>
       <img src={funnelIcon} alt="filter-select" />
-    </label>
+    </button>
   </div>
 );

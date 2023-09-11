@@ -88,11 +88,10 @@
   }
 
   &__chat {
-    width: 24px;
-    height: 24px;
     background-size: 24px 24px;
     background-repeat: no-repeat;
     flex-shrink: 0;
+    background-position: center;
     background-image: url("../../images/black-chat-logo.svg");
 
     &__selected {
@@ -101,11 +100,10 @@
   }
 
   &__users {
-    width: 24px;
-    height: 24px;
     background-size: 24px 24px;
     background-repeat: no-repeat;
     flex-shrink: 0;
+    background-position: center;
     background-image: url("../../images/black-users-logo.svg");
 
     &__selected {
@@ -114,13 +112,10 @@
   }
 
   &__calls {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-
     background-size: 24px 24px;
     background-repeat: no-repeat;
-
+    flex-shrink: 0;
+    background-position: center;
     background-image: url("../../images/black-phone-logo.svg");
 
     &__selected {
@@ -129,11 +124,10 @@
   }
 
   &__settings {
-    width: 24px;
-    height: 24px;
     background-size: 24px 24px;
     background-repeat: no-repeat;
     flex-shrink: 0;
+    background-position: center;
     background-image: url("../../images/black-settings-logo.svg");
 
     &__selected {
@@ -142,7 +136,7 @@
   }
 }
 
-.black-line {
+.black_line {
   width: 100%;
   height: 1px;
   background: #c4c4c4;

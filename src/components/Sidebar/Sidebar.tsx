@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import s from './Sidebar.module.scss';
+import { NavLink } from "react-router-dom";
 import classNames from 'classnames';
 
 const Sidebar: FC = () => {
-  const selected = false;
 
   return (
     <div className={s.sidebar}>
@@ -12,63 +12,51 @@ const Sidebar: FC = () => {
           <div className={s.sidebar__logo_icon} />
         </div>
 
-        <div
-          className={classNames(
-            s.sidebar__item,
-            selected && s.sidebar__item__selected,
-          )}
-        >
-          <div
-            className={classNames(
+        <NavLink
+          to="/home"
+          className={({ isActive, isPending }) =>
+            classNames(s.sidebar__item,
               s.sidebar__chat,
-              selected && s.sidebar__chat__selected,
-            )}
-          />
-        </div>
+              isActive && s.sidebar__chat__selected,
+              isActive && s.sidebar__item__selected,
+            )
+          }
+        />
 
-        <div
-          className={classNames(
-            s.sidebar__item,
-            selected && s.sidebar__item__selected,
-          )}
-        >
-          <div
-            className={classNames(
+        <NavLink
+          to="/groups"
+          className={({ isActive, isPending }) =>
+            classNames(s.sidebar__item,
               s.sidebar__users,
-              selected && s.sidebar__users__selected,
-            )}
-          />
-        </div>
+              isActive && s.sidebar__users__selected,
+              isActive && s.sidebar__item__selected,
+            )
+          }
+        />
 
-        <div
-          className={classNames(
-            s.sidebar__item,
-            selected && s.sidebar__item__selected,
-          )}
-        >
-          <div
-            className={classNames(
+        <NavLink
+          to="/calls"
+          className={({ isActive, isPending }) =>
+            classNames(s.sidebar__item,
               s.sidebar__calls,
-              selected && s.sidebar__calls__selected,
-            )}
-          />
-        </div>
+              isActive && s.sidebar__calls__selected,
+              isActive && s.sidebar__item__selected,
+            )
+          }
+        />
 
-        <div className={s.blackLine} />
+        <div className={s.black_line} />
 
-        <div
-          className={classNames(
-            s.sidebar__item,
-            selected && s.sidebar__settings__selected,
-          )}
-        >
-          <div
-            className={classNames(
+        <NavLink
+          to="/settings"
+          className={({ isActive, isPending }) =>
+            classNames(s.sidebar__item,
               s.sidebar__settings,
-              selected && s.sidebar__settings__selected,
-            )}
-          />
-        </div>
+              isActive && s.sidebar__settings__selected,
+              isActive && s.sidebar__item__selected,
+            )
+          }
+        />
       </div>
 
       <div className={s.sidebar__info__wrapper}>
