@@ -4,6 +4,8 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 import { ChatsPage } from "../pages/ChatsPage";
 
 export const Router: FC = () => {
+  const isUserLoggedIn = false;
+
   const routes = useRoutes([
     {
       path: '/',

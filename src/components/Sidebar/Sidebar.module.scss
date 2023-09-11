@@ -1,3 +1,6 @@
+@import "../../utils/vars.module.scss";
+@import "../../utils/mixins.module.scss";
+
 .sidebar {
   height: 100%;
   display: flex;
@@ -40,14 +43,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
     border-radius: 12px;
     background-color: #fff;
 
     &__selected {
-      background: #5b96f7;
+      background: $default-light-blue;
     }
   }
 
@@ -64,7 +67,7 @@
       height: 28px;
       flex-shrink: 0;
       border-radius: 20px;
-      background: #5b96f7;
+      background: $default-light-blue;
       display: flex;
       align-items: center;
       justify-content: flex-end;
