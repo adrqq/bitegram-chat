@@ -6,7 +6,10 @@ import archiveIcon from '../../images/gray-archive-icon.svg'
 interface ArchivedBarProps { }
 
 export const ArchivedBar: FC<ArchivedBarProps> = () => (
-  <div className={s.archived_bar}>
+  <button
+    className={s.archived_bar}
+    type='button'
+  >
     <img
       className={s.archived_bar__icon}
       src={archiveIcon}
@@ -17,5 +20,5 @@ export const ArchivedBar: FC<ArchivedBarProps> = () => (
     >
       Archive
     </p>
-  </div>
+  </button>
 );

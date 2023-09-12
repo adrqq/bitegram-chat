@@ -16,3 +16,5 @@ export const ChatsPage: FC<Props> = () => {
     </>
   );
 }
+
+export default ChatsPage;

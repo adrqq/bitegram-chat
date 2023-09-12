@@ -27,6 +27,15 @@
       font-weight: 800;
       line-height: normal;
     }
+
+    &__dashed_circle {
+      border-radius: 100%;
+      padding: 5px;
+
+      &:hover {
+        background-color: rgba(99, 115, 129, 0.08);
+      }
+    }
   }
 
   &__search_bar {

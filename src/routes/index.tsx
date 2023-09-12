@@ -1,27 +1,51 @@
 import { Suspense, lazy, FC } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
-import { DefaultLayout } from "../layouts/DefaultLayout";
-import { ChatsPage } from "../pages/ChatsPage";
+import { LoadingPage } from "../pages/LoadingPage";
+
+const Loadable = (Component: any) => (props: any) => {
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      <Component {...props} />
+    </Suspense>
+  );
+};
 
 export const Router: FC = () => {
-  const isUserLoggedIn = false;
 
   const routes = useRoutes([
     {
-      path: '/',
-      element: <Navigate to="/home" />,
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        { path: "login", element: <LoginPage /> },
+        { path: "register", element: <RegisterPage /> },
+        // { path: "reset-password", element: <ResetPasswordPage /> },
+        // { path: "new-password", element: <NewPasswordPage /> },
+        // {path: "verify", element: <VerifyPage /> },
+      ],
     },
     {
-      path: '/home',
+      path: '/',
+      element: <Navigate to="/app" />,
+    },
+    {
+      path: '/',
       element: <DefaultLayout />,
       children: [
         {
-          path: '/home',
+          path: '/app',
           element: <ChatsPage />,
         }
       ]
-    }
+    },
   ]);
 
   return routes;
 }
+
+const DefaultLayout = Loadable(lazy(() => import("../layouts/DefaultLayout/DefaultLayout")));
+const ChatsPage = Loadable(lazy(() => import("../pages/ChatsPage/ChatsPage")));
+
+const AuthLayout = Loadable(lazy(() => import("../layouts/AuthLayout/AuthLayout")));
+const LoginPage = Loadable(lazy(() => import("../pages/LoginPage/LoginPage")));
+const RegisterPage = Loadable(lazy(() => import("../pages/RegisterPage/RegisterPage")));

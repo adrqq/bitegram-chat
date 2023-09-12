@@ -19,7 +19,11 @@ export const SelectorBlock: FC<Props> = () => {
             Chats
           </h1>
 
-          <img src={dashedCircleIcon} alt="dashed-circle" />
+          <img
+            src={dashedCircleIcon}
+            alt="dashed-circle"
+            className={s.selector_block__head__dashed_circle}
+          />
         </div>
 
         <div className={s.selector_block__search_bar}>

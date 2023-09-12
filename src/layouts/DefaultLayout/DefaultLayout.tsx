@@ -5,13 +5,19 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { GeneralGrid } from '../../components/GeneralGrid';
 
 export const DefaultLayout: FC = () => {
+  const isUserLoggedIn = true;
+
   return (
     <>
-      <GeneralGrid>
-        <Sidebar />
-        <Outlet />
-        {/* <Navigate to="/home" /> */}
-      </GeneralGrid>
+      {!isUserLoggedIn && <Navigate to="/auth/login" />}
+      {isUserLoggedIn && (
+        <GeneralGrid>
+          <Sidebar />
+          <Outlet />
+        </GeneralGrid>
+      )}
     </>
   );
 }
+
+export default DefaultLayout;
