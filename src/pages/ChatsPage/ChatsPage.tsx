@@ -7,12 +7,15 @@ interface Props {
 }
 
 export const ChatsPage: FC<Props> = () => {
+  const isSelected = true;
 
   return (
     <>
       <SelectorBlock />
 
       <OpenChatView />
+
+      <div style={{backgroundColor: "red"}}/>
     </>
   );
 }
