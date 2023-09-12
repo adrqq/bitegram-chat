@@ -1,12 +1,17 @@
 /* eslint-disable max-len */
-import { configureStore, Action } from '@reduxjs/toolkit';
-import rootReducer from './slices/rootSlice';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import rootSlice from './slices/rootSlice';
 
-const store = configureStore({
-  reducer: {
-    rootReducer,
-  },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productsAPI.middleware),
+const rootReducer = combineReducers({
+  rootSlice,
 });
 
-export default store;
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+  });
+};
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
