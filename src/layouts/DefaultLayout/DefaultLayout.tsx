@@ -5,7 +5,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { GeneralGrid } from '../../components/GeneralGrid';
 
 export const DefaultLayout: FC = () => {
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
 
   return (
     <>

@@ -1,12 +1,136 @@
-import React, { FC } from 'react';
-import styles from './RegisterPage.module.scss';
+import React, { FC, useState } from 'react';
+import s from './RegisterPage.module.scss';
+
+import AuthInput from '../../UI/AuthInput/AuthInput';
+
+import googleAuthIcon from '../../images/google-auth-icon.svg';
+import githubAuthIcon from '../../images/github-auth-icon.svg';
+import { NavLink } from 'react-router-dom';
 
 interface RegisterPageProps { }
 
-export const RegisterPage: FC<RegisterPageProps> = () => (
-  <div className={styles.RegisterPage}>
-    RegisterPage Component
-  </div>
-);
+export const RegisterPage: FC<RegisterPageProps> = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  return (
+    <div className={s.register_page}>
+      <h1 className={s.register_page__title}>
+        Get started with bitegram
+      </h1>
+
+      <div className={s.redirect_wrapper}>
+        <div className={s.redirect}>
+          <p className={s.redirect__text}>
+            Already have an account?
+          </p>
+
+          <NavLink
+            to="/auth/login"
+            className={s.redirect__link}
+          >
+            Sign in
+          </NavLink>
+        </div>
+      </div>
+
+      <form className={s.register_page__form}>
+        <div className={s.register_page__input_wrapper}>
+          <AuthInput
+            legend="First name"
+            type="text"
+            name="name"
+            placeholder="First name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+
+          <AuthInput
+            legend="Last name"
+            type="text"
+            name="surname"
+            placeholder="Last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className={s.register_page__input_wrapper}>
+          <AuthInput
+            legend="Email"
+            type="email"
+            name="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className={s.register_page__input_wrapper}>
+          <AuthInput
+            legend="Password"
+            type="password"
+            name="email"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        {/* <div className={s.register_page__forgot_pass_wrapper}>
+          <NavLink
+            to="/forgot-password"
+            className={s.forgot_pass}
+          >
+            Forgot password?
+          </NavLink>
+        </div> */}
+
+        <div className={s.register_page__btn_wrapper}>
+          <button
+            type="submit"
+            className={s.submit_btn}
+          >
+            Create Account
+          </button>
+        </div>
+      </form>
+
+      <div className={s.register_page__or_wrapper}>
+        <div className={s.register_page__or}>
+          <p className={s.register_page__or__legend}>
+            or
+          </p>
+        </div>
+
+        <div className={s.register_page__socials}>
+          <button
+            type="button"
+            className={s.socials_btn}
+          >
+            <img
+              src={googleAuthIcon}
+              alt="google-logo"
+              className={s.socials_btn__ico}
+            />
+          </button>
+
+          <button
+            type="button"
+            className={s.socials_btn}
+          >
+            <img
+              src={githubAuthIcon}
+              alt="github-logo"
+              className={s.socials_btn__ico}
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default RegisterPage;

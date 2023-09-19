@@ -1,0 +1,50 @@
+.auth_input {
+  width: 100%;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  transition: border 0.1s ease-in-out;
+  position: relative;
+  background-color: #E8F0FE;
+  ;
+
+  &:hover {
+    border: 1px solid #000000;
+  }
+
+  &__legend {
+    color: #919EAB;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 10px;
+    padding: 0 4px;
+  }
+
+  &__input {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 8px 10px 15px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+
+    &::placeholder {
+      color: #919EAB;
+    }
+  }
+}
+
+.pass_visibility_eye_wrapper {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.pass_visibility_eye {
+  &__ico {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+}
