@@ -6,14 +6,33 @@ import AuthInput from '../../UI/AuthInput/AuthInput';
 import googleAuthIcon from '../../images/google-auth-icon.svg';
 import githubAuthIcon from '../../images/github-auth-icon.svg';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
+import { register } from '../../redux/slices/authSlice';
 
 interface RegisterPageProps { }
 
 export const RegisterPage: FC<RegisterPageProps> = () => {
+  const dispatch = useAppDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [nickname, setNickname] = useState('');
+
+  const handleRegister = async () => {
+    console.log('register');
+
+    await dispatch(register({
+      email,
+      password,
+      firstName,
+      lastName,
+      nickname,
+    })).then((res) => {
+      console.log(`res`, res);
+    });
+  }
 
   return (
     <div className={s.register_page}>
@@ -36,7 +55,13 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
         </div>
       </div>
 
-      <form className={s.register_page__form}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleRegister();
+        }}
+      className={s.register_page__form}
+      >
         <div className={s.register_page__input_wrapper}>
           <AuthInput
             legend="First name"
@@ -54,6 +79,17 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="Last name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className={s.register_page__input_wrapper}>
+          <AuthInput
+            legend="nickname"
+            type="text"
+            name="text"
+            placeholder="Nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
         </div>
 

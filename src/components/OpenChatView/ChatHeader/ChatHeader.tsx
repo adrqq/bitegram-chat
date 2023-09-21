@@ -33,7 +33,7 @@ export const ChatHeader = () => {
             className={`${s.chat_header__icon} ${s.chat_header__icon_search}`}
           />
 
-          <button className={s.black_row} />
+          <div className={s.black_row} />
 
           <button
             onClick={() => dispach(handleModalOpener(!isChatModalOpen))}

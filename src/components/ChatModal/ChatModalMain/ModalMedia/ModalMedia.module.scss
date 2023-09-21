@@ -1,0 +1,32 @@
+.modal_media {
+  overflow-y: scroll;
+  height: 640px;
+
+  &__item {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+
+    &__day {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      &__photos {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      &__title {
+        color: #4f4f4f;
+        font-family: Manrope;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+}

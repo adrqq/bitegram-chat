@@ -11,6 +11,7 @@ interface AuthInputProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
 export const AuthInput: FC<AuthInputProps> = ({
@@ -20,6 +21,7 @@ export const AuthInput: FC<AuthInputProps> = ({
   placeholder,
   value,
   onChange,
+  required = false,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -37,6 +39,7 @@ export const AuthInput: FC<AuthInputProps> = ({
         className={s.auth_input__input}
         value={value}
         onChange={onChange}
+        required={required}
       />
 
       {type === 'password' && (

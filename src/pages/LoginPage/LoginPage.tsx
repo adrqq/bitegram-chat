@@ -5,12 +5,22 @@ import AuthInput from '../../UI/AuthInput/AuthInput';
 
 import googleAuthIcon from '../../images/google-auth-icon.svg';
 import githubAuthIcon from '../../images/github-auth-icon.svg';
+import { useAppDispatch } from '../../hooks/redux';
+import { login } from '../../redux/slices/authSlice';
 
 interface LoginPageProps { }
 
 export const LoginPage: FC<LoginPageProps> = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    console.log('login');
+    await dispatch(login({ email, password })).then((res) => {
+      console.log(`res`, res);
+    });
+  }
 
   return (
     <div className={s.login_page}>
@@ -33,7 +43,13 @@ export const LoginPage: FC<LoginPageProps> = () => {
         </div>
       </div>
 
-      <form className={s.login_page__form}>
+      <form
+        className={s.login_page__form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+      >
         <div className={s.login_page__input_wrapper}>
           <AuthInput
             legend="Email"
@@ -42,6 +58,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required={true}
           />
         </div>
 
@@ -53,6 +70,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required={true}
           />
         </div>
 

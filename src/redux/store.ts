@@ -1,9 +1,11 @@
 /* eslint-disable max-len */
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import rootSlice from './slices/rootSlice';
+import authSlice from './slices/authSlice';
 
 const rootReducer = combineReducers({
   rootSlice,
+  authSlice,
 });
 
 export const setupStore = () => {
