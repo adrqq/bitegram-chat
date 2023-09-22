@@ -7,6 +7,7 @@ import googleAuthIcon from '../../images/google-auth-icon.svg';
 import githubAuthIcon from '../../images/github-auth-icon.svg';
 import { useAppDispatch } from '../../hooks/redux';
 import { login } from '../../redux/slices/authSlice';
+import { type } from 'os';
 
 interface LoginPageProps { }
 
@@ -18,7 +19,9 @@ export const LoginPage: FC<LoginPageProps> = () => {
   const handleLogin = async () => {
     console.log('login');
     await dispatch(login({ email, password })).then((res) => {
-      console.log(`res`, res);
+      if (!res.payload) return;
+
+      console.log('res.payload secsess', res.payload);
     });
   }
 
