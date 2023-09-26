@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.0:537';
+const BASE_URL = 'http://127.0.0.1:537';
 
 const $api = axios.create({
   withCredentials: true,

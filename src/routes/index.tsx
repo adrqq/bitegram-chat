@@ -1,6 +1,7 @@
 import { Suspense, lazy, FC } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { LoadingPage } from "../pages/LoadingPage";
+import { VerifyAccountPage } from "../pages/VerifyAccountPage/VerifyAccountPage";
 
 const Loadable = (Component: any) => (props: any) => {
   return (
@@ -21,7 +22,7 @@ export const Router: FC = () => {
         { path: "register", element: <RegisterPage /> },
         // { path: "reset-password", element: <ResetPasswordPage /> },
         // { path: "new-password", element: <NewPasswordPage /> },
-        // {path: "verify", element: <VerifyPage /> },
+        { path: "verify", element: <VerifyAccountPage /> },
       ],
     },
     {
