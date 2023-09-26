@@ -3,14 +3,15 @@ import React, { FC } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { GeneralGrid } from '../../components/GeneralGrid';
+import { useAppSelector } from '../../hooks/redux';
 
 export const DefaultLayout: FC = () => {
-  const isUserLoggedIn = false;
+  const { isUserAuth } = useAppSelector((state) => state.authSlice);
 
   return (
     <>
-      {!isUserLoggedIn && <Navigate to="/auth/login" />}
-      {isUserLoggedIn && (
+      {!isUserAuth && <Navigate to="/auth/login" />}
+      {isUserAuth && (
         <GeneralGrid>
           <Sidebar />
           <Outlet />
