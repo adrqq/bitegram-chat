@@ -14,6 +14,7 @@ interface RegisterPageProps { }
 export const RegisterPage: FC<RegisterPageProps> = () => {
   const dispatch = useAppDispatch();
 
+  const [submitError, setSubmitError] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -21,7 +22,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
   const [nickname, setNickname] = useState('');
 
   const handleRegister = async () => {
-    console.log('register');
+    if (submitError) {
+      return;
+    }
 
     await dispatch(register({
       email,
@@ -60,7 +63,7 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
           e.preventDefault();
           handleRegister();
         }}
-      className={s.register_page__form}
+        className={s.register_page__form}
       >
         <div className={s.register_page__input_wrapper}>
           <AuthInput
@@ -70,6 +73,8 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="First name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            submitError={submitError}
+            setSubmitError={setSubmitError}
           />
 
           <AuthInput
@@ -79,6 +84,8 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="Last name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            submitError={submitError}
+            setSubmitError={setSubmitError}
           />
         </div>
 
@@ -90,6 +97,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="Nickname"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
+            required={true}
+            submitError={submitError}
+            setSubmitError={setSubmitError}
           />
         </div>
 
@@ -101,6 +111,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required={true}
+            submitError={submitError}
+            setSubmitError={setSubmitError}
           />
         </div>
 
@@ -112,6 +125,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required={true}
+            submitError={submitError}
+            setSubmitError={setSubmitError}
           />
         </div>
 
