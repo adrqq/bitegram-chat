@@ -2,6 +2,7 @@ import { Suspense, lazy, FC } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { LoadingPage } from "../pages/LoadingPage";
 import { VerifyAccountPage } from "../pages/VerifyAccountPage/VerifyAccountPage";
+import { SettingsPage } from "../pages/SettingsPage/SettingsPage";
 
 const Loadable = (Component: any) => (props: any) => {
   return (
@@ -36,6 +37,10 @@ export const Router: FC = () => {
         {
           path: '/app',
           element: <ChatsPage />,
+        },
+        {
+          path: '/app/settings',
+          element: <SettingsPage />,
         }
       ]
     },

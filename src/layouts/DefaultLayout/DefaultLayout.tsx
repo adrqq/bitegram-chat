@@ -6,7 +6,9 @@ import { GeneralGrid } from '../../components/GeneralGrid';
 import { useAppSelector } from '../../hooks/redux';
 
 export const DefaultLayout: FC = () => {
-  const { isUserAuth } = useAppSelector((state) => state.authSlice);
+  // const { isUserAuth } = useAppSelector((state) => state.authSlice);
+
+  const isUserAuth = true;
 
   return (
     <>
