@@ -28,14 +28,14 @@ export const Router: FC = () => {
     },
     {
       path: '/',
-      element: <Navigate to="/app" />,
+      element: <Navigate to="/app/chats" />,
     },
     {
       path: '/',
       element: <DefaultLayout />,
       children: [
         {
-          path: '/app',
+          path: '/app/chats',
           element: <ChatsPage />,
         },
         {

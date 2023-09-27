@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import s from "./ChatHeader.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { handleModalOpener } from "../../../redux/slices/rootSlice";
+import { LinksModal } from "../../../UI/LinksModal";
 
 export const ChatHeader = () => {
-  const dispach = useAppDispatch();
-  const { isChatModalOpen } = useAppSelector((state) => state.rootSlice);
+  const dispatch = useAppDispatch();
+  const ignoreButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
+
+  const linksData = [
+    {
+      text: 'Contact info',
+      // icon: "test",
+      // to: "test",
+      onClick: () => console.log('test'),
+    },
+    {
+      text: 'Mute notifications',
+      // icon: "test",
+      to: "test",
+    },
+    {
+      text: 'Clear messages',
+      // icon: "test",
+      to: "test",
+    },
+    {
+      text: 'Delete chat',
+      // icon: "test",
+      to: "test",
+    }
+  ]
+
+  const handleOpenLinksModal = () => {
+    setIsLinksModalOpen(!isLinksModalOpen);
+  };
 
   return (
     <header className={s.chat_header}>
@@ -36,9 +66,23 @@ export const ChatHeader = () => {
           <div className={s.black_row} />
 
           <button
-            onClick={() => dispach(handleModalOpener(!isChatModalOpen))}
+            ref={ignoreButtonRef}
+            onClick={handleOpenLinksModal}
             className={`${s.chat_header__icon} ${s.chat_header__icon_menu}`}
           />
+
+          {isLinksModalOpen && (
+            <div className={s.links_modal_wrapper}>
+              <LinksModal
+                linksData={linksData}
+                width={'175px'}
+                outerPadding={'15px'}
+                linkGap={'20px'}
+                closeModal={() => setIsLinksModalOpen(false)}
+                ignoreButtonRef={ignoreButtonRef}
+              />
+            </div>
+          )}
         </div>
       </div>
     </header>

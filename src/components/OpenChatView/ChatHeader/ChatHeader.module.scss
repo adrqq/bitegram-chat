@@ -2,7 +2,7 @@
 
 .chat_header {
   background: #F8FAFF;
-  
+
   &__wrapper {
     padding: 20px;
     display: flex;
@@ -81,4 +81,11 @@
       background-image: url("../../../images/menu-logo.svg");
     }
   }
+}
+
+.links_modal_wrapper {
+  z-index: 1;
+  position: absolute;
+  top: 65px;
+  right: 30px;
 }

@@ -1,10 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import s from './Sidebar.module.scss';
-import { NavLink, useNavigate } from "react-router-dom";
 import classNames from 'classnames';
+import { NavLink, useNavigate } from "react-router-dom";
+import { LinksModal } from '../../UI/LinksModal';
+
+import testAvatar from '../../images/avatar.svg';
+import settingsIcon from '../../images/black-settings-logo.svg'
+import usersIcon from '../../images/black-users-logo.svg'
+import signoutIcon from '../../images/sign-out-logo-black.svg'
 
 const Sidebar: FC = () => {
+  const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
   const navigate = useNavigate();
+  const ignoreButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className={s.sidebar}>
@@ -14,7 +22,7 @@ const Sidebar: FC = () => {
         </div>
 
         <NavLink
-          to="app/home"
+          to="app/chats"
           className={({ isActive, isPending }) =>
             classNames(s.sidebar__item,
               s.sidebar__chat,
@@ -65,7 +73,43 @@ const Sidebar: FC = () => {
           <div className={s.sidebar__switch} />
         </div>
 
-        <div className={s.sidebar__avatar} />
+        <button
+          className={s.avatar}
+          onClick={() => setIsLinksModalOpen(!isLinksModalOpen)}
+          ref={ignoreButtonRef}
+        >
+          <img src={testAvatar} alt="avatar" />
+        </button>
+
+        {isLinksModalOpen && (
+          <div className={s.links_modal_wrapper}>
+            <LinksModal
+              linksData={[
+                {
+                  text: 'Profile',
+                  icon: usersIcon,
+                  to: "test",
+                },
+                {
+                  text: 'Settings',
+                  icon: settingsIcon,
+                  to: "test",
+                },
+                {
+                  text: 'Sign out',
+                  icon: signoutIcon,
+                  to: "test",
+                  onClick: () => console.log('sign out'),
+                },
+              ]}
+              closeModal={() => setIsLinksModalOpen(false)}
+              ignoreButtonRef={ignoreButtonRef}
+              width={'175px'}
+              outerPadding={'15px'}
+              linkGap={'20px'}
+            />
+          </div>
+        )}
       </div>
     </div >
   );

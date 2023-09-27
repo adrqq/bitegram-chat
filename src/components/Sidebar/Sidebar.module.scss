@@ -25,10 +25,11 @@
     margin-top: 24px;
 
     &_icon {
-      width: 37px;
-      height: 37px;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
       flex-shrink: 0;
-      background: url("../../images/app-logo.png"), 50% / contain no-repeat;
+      background: url("../../images/main-app-logo.svg") center / contain no-repeat;
     }
   }
 
@@ -61,9 +62,8 @@
     border-radius: 50%;
     margin: 0 5px;
 
-
     &__wrapper {
-      width: 53px;
+      width: 48px;
       height: 28px;
       flex-shrink: 0;
       border-radius: 20px;
@@ -75,19 +75,12 @@
   }
 
   &__info__wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 36px;
     margin-bottom: 24px;
-  }
-
-  &__avatar {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    border-radius: 48px;
-    background: url("../../images/avatar.svg"), 50% / cover no-repeat;
   }
 
   &__chat {
@@ -143,4 +136,17 @@
   width: 100%;
   height: 1px;
   background: #c4c4c4;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 48px;
+}
+
+.links_modal_wrapper {
+  position: absolute;
+  z-index: 1;
+  left: 49px;
 }

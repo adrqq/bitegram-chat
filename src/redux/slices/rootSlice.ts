@@ -10,14 +10,14 @@ export const rootSlice = createSlice({
   name: 'root',
   initialState,
   reducers: {
-    handleModalOpener: (state, action: PayloadAction<boolean>) => {
+    handleModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isChatModalOpen = action.payload;
     }
   },
 });
 
 export const {
-  handleModalOpener,
+  handleModalOpen,
 } = rootSlice.actions;
 
 export default rootSlice.reducer;
