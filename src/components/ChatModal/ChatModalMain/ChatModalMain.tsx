@@ -1,56 +1,72 @@
 import React from "react";
 import s from "./ChatModalMain.module.scss";
-import classNames from "classnames";
-import { ModalMedia } from "./ModalMedia/ModalMedia";
-
-enum SelectedItem {
-  Media = 'Media',
-  Links = 'Links',
-  Docs = 'Docs',
-}
+import { ModalMultiSelector } from "./ModalMultiSelector/ModalMultiSelector";
+import userAvatar from "../../../images/Rectangle 31.png";
+import videoCall from "../../../images/camera-logo.svg";
+import phoneCall from "../../../images/phone-logo.svg";
 
 export const ChatModalMain = () => {
-  const [selectedItem, setSelectedItem] = React.useState(SelectedItem.Media);
-
   return (
-    <div className={s.chat_modal_main}> 
-      <ul className={s.chat_modal_main__list}>
-        <li 
-        onClick={() => setSelectedItem(SelectedItem.Media)}
-        className={classNames(
-          s.chat_modal_main__list_item,
-          {[s.chat_modal_main__list_item__selected]: selectedItem === SelectedItem.Media}
-        )}
-        >
-          Media
-        </li>
+    <div className={s.chat_modal_main}>
+      {/* <ModalMultiSelector /> */}
+      <div className={s.chat_modal_main__user__info}>
+        <img
+          className={s.chat_modal_main__user__avatar}
+          src={userAvatar}
+          alt="avatar"
+        />
 
-        <li
-        onClick={() => setSelectedItem(SelectedItem.Links)}
-        className={classNames(
-          s.chat_modal_main__list_item,
-          {[s.chat_modal_main__list_item__selected]: selectedItem === SelectedItem.Links}
-        )}
-        >
-          Links
-        </li>
+        <div className={s.chat_modal_main__user__contact}>
+          <h1 className={s.chat_modal_main__user__name}>John Doe</h1>
 
-        <li
-        onClick={() => setSelectedItem(SelectedItem.Docs)}
-        className={classNames(
-          s.chat_modal_main__list_item,
-          {[s.chat_modal_main__list_item__selected]: selectedItem === SelectedItem.Docs}
-        )}
-        >
-          Docs
-        </li>
-      </ul>
-
-      <div className={s.chat_modal_main__content}>
-        {selectedItem === SelectedItem.Media && <ModalMedia />}
-        {selectedItem === SelectedItem.Links && <div>Links</div>}
-        {selectedItem === SelectedItem.Docs && <div>Docs</div>}
+          <p className={s.chat_modal_main__user__phone}>+380 00 000 00 00</p>
+        </div>
       </div>
+
+      <div className={s.chat_modal_main__calls}>
+        <div className={s.chat_modal_main__calls__wrapper}>
+          <img
+            src={videoCall}
+            alt="videoCall"
+            className={`${s.chat_modal_main__icon} ${s.chat_modal_main__icon__video}`}
+          />
+          <span className={s.chat_modal_main__calls__title}>Video</span>
+        </div>
+
+        <div className={s.chat_modal_main__calls__wrapper}>
+          <img
+            src={phoneCall}
+            alt="videoCall"
+            className={`${s.chat_modal_main__icon} ${s.chat_modal_main__icon__phone}`}
+          />
+          <span className={s.chat_modal_main__calls__title}>Voice</span>
+        </div>
+      </div>
+
+      <div className={s.black_row} />
+
+      <div className={s.chat_modal_main__about}>
+        <h1 className={s.chat_modal_main__about__title}>About</h1>
+
+        <p className={s.chat_modal_main__about__description}>
+          Hi there, I am using{" "}
+        </p>
+      </div>
+
+      <div className={s.black_row} />
+
+
+      <div className={s.chat_modal_main__media}>
+        <p className={s.chat_modal_main__media__title}>
+        Media, Links & Docs
+        </p>
+
+        <div className={s.chat_modal_main__media}>
+          <p>
+            Media, Links & Docs
+          </p>
+          <div className={s.chat_modal_main__media__icon} />
+        </div>
     </div>
-  )
-}
+  );
+};

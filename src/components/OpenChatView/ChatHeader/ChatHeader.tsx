@@ -11,7 +11,11 @@ export const ChatHeader = () => {
     <header className={s.chat_header}>
       <div className={s.chat_header__wrapper}>
         <div className={s.chat_header__right}>
-          <div className={s.chat_header__avatar} />
+          <button className={s.chat_header__avatar}
+            onClick={() => dispach(handleModalOpener(!isChatModalOpen))} 
+          >
+            
+          </button>
 
           <div className={s.chat_header__info}>
             <span className={s.chat_header__nickname}>Pink Panda</span>
@@ -36,7 +40,7 @@ export const ChatHeader = () => {
           <div className={s.black_row} />
 
           <button
-            onClick={() => dispach(handleModalOpener(!isChatModalOpen))}
+            // onClick={() => dispach(handleModalOpener(!isChatModalOpen))}
             className={`${s.chat_header__icon} ${s.chat_header__icon_menu}`}
           />
         </div>
