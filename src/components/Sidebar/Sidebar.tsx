@@ -14,7 +14,7 @@ const Sidebar: FC = () => {
         </div>
 
         <NavLink
-          to="/home"
+          to="app/home"
           className={({ isActive, isPending }) =>
             classNames(s.sidebar__item,
               s.sidebar__chat,
@@ -25,7 +25,7 @@ const Sidebar: FC = () => {
         />
 
         <NavLink
-          to="/groups"
+          to="app/groups"
           className={({ isActive, isPending }) =>
             classNames(s.sidebar__item,
               s.sidebar__users,
@@ -36,7 +36,7 @@ const Sidebar: FC = () => {
         />
 
         <NavLink
-          to="/calls"
+          to="app/calls"
           className={({ isActive, isPending }) =>
             classNames(s.sidebar__item,
               s.sidebar__calls,
@@ -49,7 +49,7 @@ const Sidebar: FC = () => {
         <div className={s.black_line} />
 
         <NavLink
-          to="/settings"
+          to="app/settings"
           className={({ isActive, isPending }) =>
             classNames(s.sidebar__item,
               s.sidebar__settings,
