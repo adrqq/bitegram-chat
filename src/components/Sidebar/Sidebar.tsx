@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import s from './Sidebar.module.scss';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import classNames from 'classnames';
 
 const Sidebar: FC = () => {
+  const navigate = useNavigate();
 
   return (
     <div className={s.sidebar}>

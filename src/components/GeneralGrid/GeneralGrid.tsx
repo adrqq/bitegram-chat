@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import s from './GeneralGrid.module.scss';
 import classNames from 'classnames';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 
 interface Props {
   children: ReactNode;
@@ -12,9 +12,10 @@ export const GeneralGrid: FC<Props> = ({ children }) => {
 
   return (
     <div className={classNames(
-      {[s.grid]: !isChatModalOpen},
-      {[s.grid__with_module]: isChatModalOpen}
-    )}>
+      { [s.grid]: !isChatModalOpen },
+      { [s.grid__with_module]: isChatModalOpen }
+    )}
+    >
       {children}
     </div>
   );

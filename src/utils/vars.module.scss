@@ -4,8 +4,13 @@ $default-white: #F8FAFF;
 // together must equal 100%
 $selector-block-size: 30%;
 $main-block-size: 70%;
+// navigation bar width
+$navbar-width: 100px;
 
-$navbar-width: 120px;
+// open chat view
+$open-chat-view--header-height: 80px;
+$open-chat-view--footer-height: 80px;
+
 
 $main-font: 'Manrope', sans-serif;
 
@@ -16,4 +21,4 @@ $search-bar--color: #EAF2FE;
 //
 $selector-block-size-module: 25%;
 $main-block-size-module: 50%;
-$module-block-size:25%
+$module-block-size: 25%

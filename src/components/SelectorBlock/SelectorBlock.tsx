@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import s from './SelectorBlock.module.scss';
 import { SearchBar } from '../SearchBar/';
 import { ChatItem } from '../ChatItem'
 
 import dashedCircleIcon from '../../images/dashed-circle.svg'
 import { ArchivedBar } from '../ArchivedBar/ArchivedBar';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 
 interface Props {
 }
@@ -12,7 +13,9 @@ interface Props {
 export const SelectorBlock: FC<Props> = () => {
 
   return (
-    <div className={s.selector_block}>
+    <div
+      className={s.selector_block}
+    >
       <div className={s.selector_block__sticky}>
         <div className={s.selector_block__head}>
           <h1 className={s.selector_block__head__title}>

@@ -49,7 +49,7 @@ export const AuthInput: FC<AuthInputProps> = ({
       setErrorMessage('');
       setSubmitError(false);
     }
-  }, [value, required, setSubmitError, type,]);
+  }, [value, required, setSubmitError, type]);
 
   return (
     <div className={s.auth_input_wrapper}>

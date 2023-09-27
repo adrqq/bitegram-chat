@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const ChatsPage: FC<Props> = () => {
-  const { isChatModalOpen} = useAppSelector((state) => state.rootSlice);
+  const { isChatModalOpen } = useAppSelector((state) => state.rootSlice);
 
   return (
     <>

@@ -16,5 +16,8 @@ export const rootSlice = createSlice({
   },
 });
 
-export const { handleModalOpener } = rootSlice.actions;
+export const {
+  handleModalOpener,
+} = rootSlice.actions;
+
 export default rootSlice.reducer;

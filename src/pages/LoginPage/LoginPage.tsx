@@ -20,12 +20,8 @@ export const LoginPage: FC<LoginPageProps> = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      setSubmitError(true);
-
-      setTimeout(() => {
-        setSubmitError(false);
-      }, 0);
+    if (submitError) {
+      return;
     }
 
     console.log("login");
