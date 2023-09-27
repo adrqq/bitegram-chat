@@ -1,6 +1,6 @@
 .modal_media {
   overflow-y: scroll;
-  height: 640px;
+  max-height: 500px;
 
   &__item {
     display: flex;
