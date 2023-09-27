@@ -32,6 +32,22 @@
       color: #919EAB;
     }
   }
+
+  &__error {
+    color: #FF0000;
+    opacity: 0.8;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 5px;
+    margin-top: 1px;
+    padding: 0 4px;
+  }
+}
+
+.auth_input_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .pass_visibility_eye_wrapper {

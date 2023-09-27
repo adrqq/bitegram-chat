@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { register } from "../../redux/slices/authSlice";
 import { IButton } from "../../UI/IButton.tsx/IButton";
 
-interface RegisterPageProps {}
+interface RegisterPageProps { }
 
 export const RegisterPage: FC<RegisterPageProps> = () => {
   const dispatch = useAppDispatch();
@@ -19,14 +19,17 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
     (state) => state.authSlice
   );
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [submitError, setSubmitError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const handleRegister = async () => {
-    console.log("register");
+    if (submitError) {
+      return;
+    }
 
     await dispatch(
       register({
@@ -103,6 +106,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
                 placeholder="Nickname"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
+                required={true}
+                submitError={submitError}
+                setSubmitError={setSubmitError}
               />
             </div>
 
@@ -114,6 +120,9 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required={true}
+                submitError={submitError}
+                setSubmitError={setSubmitError}
               />
             </div>
 
@@ -125,17 +134,20 @@ export const RegisterPage: FC<RegisterPageProps> = () => {
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required={true}
+                submitError={submitError}
+                setSubmitError={setSubmitError}
               />
             </div>
 
-            {/* <div className={s.register_page__forgot_pass_wrapper}>
-            <NavLink
-              to="/forgot-password"
-              className={s.forgot_pass}
-            >
-              Forgot password?
-            </NavLink>
-          </div> */}
+            <div className={s.register_page__forgot_pass_wrapper}>
+              <NavLink
+                to="/forgot-password"
+                className={s.forgot_pass}
+              >
+                Forgot password?
+              </NavLink>
+            </div>
 
             <div className={s.register_page__btn_wrapper}>
               <IButton text="Register" type="submit" />

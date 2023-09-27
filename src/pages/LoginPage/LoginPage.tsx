@@ -3,23 +3,31 @@ import { NavLink, useNavigate } from "react-router-dom";
 import s from "./LoginPage.module.scss";
 import AuthInput from "../../UI/AuthInput/AuthInput";
 
-import googleAuthIcon from "../../images/google-auth-icon.svg";
-import githubAuthIcon from "../../images/github-auth-icon.svg";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { login } from "../../redux/slices/authSlice";
-import { type } from "os";
+import googleAuthIcon from '../../images/google-auth-icon.svg';
+import githubAuthIcon from '../../images/github-auth-icon.svg';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { login } from '../../redux/slices/authSlice';
 
-interface LoginPageProps {}
+interface LoginPageProps { }
 
 export const LoginPage: FC<LoginPageProps> = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLoginLoading, isLoginError } = useAppSelector((state) => state.authSlice);
 
+  const [submitError, setSubmitError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setSubmitError(true);
+
+      setTimeout(() => {
+        setSubmitError(false);
+      }, 0);
+    }
+
     console.log("login");
     await dispatch(login({ email, password })).then((res: any) => {
       if (!res.payload) {
@@ -63,7 +71,6 @@ export const LoginPage: FC<LoginPageProps> = () => {
               </NavLink>
             </div>
           </div>
-
           <form
             className={s.login_page__form}
             onSubmit={(e) => {
@@ -80,6 +87,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required={true}
+                submitError={submitError}
               />
             </div>
 
@@ -92,13 +100,8 @@ export const LoginPage: FC<LoginPageProps> = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required={true}
+                submitError={submitError}
               />
-            </div>
-
-            <div className={s.login_page__forgot_pass_wrapper}>
-              <NavLink to="/forgot-password" className={s.forgot_pass}>
-                Forgot password?
-              </NavLink>
             </div>
 
             <div className={s.login_page__btn_wrapper}>
