@@ -1,13 +1,13 @@
 @import '../../../utils/vars.module.scss';
 
 .chat_header {
-  background: #F8FAFF;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  max-height: $open-chat-view--header-height;
 
   &__wrapper {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-
+    background: #F8FAFF;
   }
 
   &__right {

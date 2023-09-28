@@ -2,11 +2,13 @@ import React, { useRef, useState } from "react";
 import s from "./ChatHeader.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { LinksModal } from "../../../UI/LinksModal";
+import { handleModalOpen } from "../../../redux/slices/rootSlice";
 
 export const ChatHeader = () => {
   const dispatch = useAppDispatch();
   const ignoreButtonRef = useRef<HTMLButtonElement>(null);
 
+  const {isChatModalOpen} = useAppSelector((state) => state.rootSlice);
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
 
   const linksData = [
@@ -38,11 +40,11 @@ export const ChatHeader = () => {
   };
 
   return (
-    <header className={s.chat_header}>
-      <div className={s.chat_header__wrapper}>
+    <header className={s.chat_header__wrapper}>
+      <div className={s.chat_header}>
         <div className={s.chat_header__right}>
           <button className={s.chat_header__avatar}
-            onClick={() => dispach(handleModalOpener(!isChatModalOpen))}
+            onClick={() => dispatch(handleModalOpen(!isChatModalOpen))}
           >
 
           </button>

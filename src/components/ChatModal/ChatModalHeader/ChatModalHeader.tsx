@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./ChatModalHeader.module.scss";
 import { useAppDispatch } from "../../../hooks/redux";
-import { handleModalOpener } from "../../../redux/slices/rootSlice";
+import { handleModalOpen } from "../../../redux/slices/rootSlice";
 
 export const ChatModalHeader = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ export const ChatModalHeader = () => {
   return (
     <div className={s.chat_modal_header}>
       <button
-        onClick={() => dispatch(handleModalOpener(false))}
+        onClick={() => dispatch(handleModalOpen(false))}
         className={s.chat_modal_header__icon}
       >
       </button>

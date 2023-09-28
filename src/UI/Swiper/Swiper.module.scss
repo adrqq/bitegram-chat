@@ -1,0 +1,52 @@
+@import '../../utils/vars.module.scss';
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: var((--slider-width));
+  height: var((--slider-height));
+  
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #dedede;
+  border-radius: 40px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: var((--slider-before-size));
+  width: var((--slider-before-size));
+  background: #fff;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 2.5px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background: #5B96F7;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(var(--slider-transform));
+  -moz-transform: translateX(var(--slider-transform));
+  transform: translateX(var(--slider-transform));
+}
+
+input:focus + .slider {
+}

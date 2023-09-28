@@ -3,11 +3,14 @@
 @import "../../../utils/vars.module.scss";
 
 .chat_modal_main {
+  // height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 25px;
   padding: 20px;
   background-color: $default-white;
+  overflow-y: scroll;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
 
   &__user {
     &__info {
@@ -23,8 +26,8 @@
     }
 
     &__avatar {
-      width: 65px;
-      height: 65px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
     }
 
@@ -66,10 +69,248 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &__title {
+      color: #000;
+      font-family: Manrope;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    &__description {
+      color: #000;
+      font-family: Manrope;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  &__media {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__title {
+      color: #000;
+      font-family: Manrope;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    &__button {
+      padding: 6px 8px;
+      border-radius: 8px;
+      text-transform: capitalize;
+      font-family: Manrope, Public Sans, sans-serif;
+      min-width: 64px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      color: #0162c4;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: rgba(1, 98, 196, 0.08);
+      }
+    }
+
+    &__icon {
+      width: 18px;
+      height: 18px;
+      background-image: url("../../../images/arrow_blue-logo.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      transform: rotate(180deg);
+    }
+
+    &__images {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    &__item {
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &__icon {
+      width: 18px;
+      height: 18px;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      &__star {
+        background-image: url("../../../images/star-logo.svg");
+      }
+
+      &__arrow {
+        background-image: url("../../../images/arrow-logo.svg");
+        transform: rotate(180deg);
+        border-radius: 50%;
+      }
+
+      &__ring {
+        background-image: url("../../../images/ring-logo.svg");
+      }
+    }
+  }
+
+  &__switch {
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 5px;
+
+    &__wrapper {
+      width: 40px;
+      height: 25px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: $default-light-blue;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__text {
+      color: #000;
+      font-family: Manrope;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    &__img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    &__name {
+      color: #000;
+      font-family: Manrope;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    &__description {
+      color: #000;
+      font-family: Manrope;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .black_row {
   background: #a4a4a4;
   height: 1px;
   width: 100%;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.white_button {
+  display: flex;
+  padding: 10px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #5b96f7;
+  width: 100px;
+
+  &__image {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &__flag {
+      background-image: url("../../../images/flag-icon.svg");
+    }
+
+    &__trash {
+      background-image: url("../../../images/trash-icon.svg");
+    }
+  }
+
+  &__text {
+    color: #5b96f7;
+
+    /* 01 Button/01 Large */
+    // font-family: Public Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px; /* 173.333% */
+  }
+}
+
+.chat_modal_main::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.chat_modal_main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
