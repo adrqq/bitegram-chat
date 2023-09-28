@@ -8,6 +8,7 @@ import testAvatar from '../../images/avatar.svg';
 import settingsIcon from '../../images/black-settings-logo.svg'
 import usersIcon from '../../images/black-users-logo.svg'
 import signoutIcon from '../../images/sign-out-logo-black.svg'
+import { Swiper } from '../../UI/Swiper/Swiper';
 import { useAppDispatch } from '../../hooks/redux';
 
 const Sidebar: FC = () => {
@@ -15,6 +16,13 @@ const Sidebar: FC = () => {
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
   const navigate = useNavigate();
   const ignoreButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [isChecked, setIsChecked] = React.useState(false);
+
+  const onClick = () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  };
 
   return (
     <div className={s.sidebar}>
@@ -71,9 +79,8 @@ const Sidebar: FC = () => {
       </div>
 
       <div className={s.sidebar__info__wrapper}>
-        <div className={s.sidebar__switch__wrapper}>
-          <div className={s.sidebar__switch} />
-        </div>
+        <Swiper size={45} onClick={onClick} isChecked={isChecked} />
+
 
         <button
           className={s.avatar}

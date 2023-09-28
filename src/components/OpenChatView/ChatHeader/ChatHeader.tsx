@@ -46,8 +46,8 @@ export const ChatHeader = () => {
   };
 
   return (
-    <header className={s.chat_header}>
-      <div className={s.chat_header__wrapper}>
+    <header className={s.chat_header__wrapper}>
+      <div className={s.chat_header}>
         <div className={s.chat_header__right}>
           <button className={s.chat_header__avatar}
             onClick={() => dispatch(setIsUserProfileModalOpen(!isUserProfileModalOpen))}
