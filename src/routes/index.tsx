@@ -1,8 +1,6 @@
 import { Suspense, lazy, FC } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { LoadingPage } from "../pages/LoadingPage";
-import { VerifyAccountPage } from "../pages/VerifyAccountPage/VerifyAccountPage";
-import { SettingsPage } from "../pages/SettingsPage/SettingsPage";
 
 const Loadable = (Component: any) => (props: any) => {
   return (
@@ -41,6 +39,10 @@ export const Router: FC = () => {
         {
           path: '/app/settings',
           element: <SettingsPage />,
+        },
+        {
+          path: '/app/user-profile',
+          element: <ProfilePage />,
         }
       ]
     },
@@ -51,7 +53,10 @@ export const Router: FC = () => {
 
 const DefaultLayout = Loadable(lazy(() => import("../layouts/DefaultLayout/DefaultLayout")));
 const ChatsPage = Loadable(lazy(() => import("../pages/ChatsPage/ChatsPage")));
+const ProfilePage = Loadable(lazy(() => import("../pages/ProfilePage/ProfilePage")));
+const SettingsPage = Loadable(lazy(() => import("../pages/SettingsPage/SettingsPage")));
 
 const AuthLayout = Loadable(lazy(() => import("../layouts/AuthLayout/AuthLayout")));
 const LoginPage = Loadable(lazy(() => import("../pages/LoginPage/LoginPage")));
 const RegisterPage = Loadable(lazy(() => import("../pages/RegisterPage/RegisterPage")));
+const VerifyAccountPage = Loadable(lazy(() => import("../pages/VerifyAccountPage/VerifyAccountPage")));

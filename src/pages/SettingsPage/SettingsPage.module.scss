@@ -1,4 +1,5 @@
 @import "../../utils/vars.module.scss";
+@import "../../utils/mixins.module.scss";
 
 .settings_page {
   background-color: $default-white;
@@ -7,18 +8,6 @@
   &__header {
     display: flex;
     align-items: center;
-    gap: 20px;
-  }
-
-  &__icon {
-    &__backspace {
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      background-image: url("../../images/arrow-logo.svg");
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
   }
 
   &__user {
@@ -62,16 +51,12 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    padding: 25px;
+    padding: 30px;
   }
 
   &__title {
-    font-family: $main-font;
-    color: #000;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
+    @include pageTitle;
+    margin-left: 24px;
   }
 
   &__list {

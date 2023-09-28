@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import s from './AuthInput.module.scss';
 
 import eyeOpen from '../../images/pass-eye-open.svg';
@@ -10,11 +10,12 @@ interface AuthInputProps {
   name: string;
   placeholder: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   required?: boolean;
   errorMessage?: string;
   submitError?: boolean;
   setSubmitError?: (value: boolean) => void;
+  isTextArea?: boolean;
 }
 
 export const AuthInput: FC<AuthInputProps> = ({
@@ -23,15 +24,25 @@ export const AuthInput: FC<AuthInputProps> = ({
   name,
   placeholder,
   value,
-  onChange,
+  onChange = () => { },
   required = false,
   submitError = false,
   setSubmitError = () => { },
+  isTextArea = false,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      console.log('initial render');
+      return;
+    }
+
+    console.log('render');
+
     if (value.trim().length === 0 && required) {
       setErrorMessage('This field is required');
 
@@ -58,16 +69,24 @@ export const AuthInput: FC<AuthInputProps> = ({
           {legend}
         </legend>
 
-        <input
-          type={type === 'password' && isPasswordVisible ? 'text' : type}
-          name={name}
-          placeholder={placeholder}
-          className={s.auth_input__input}
-          value={value}
-          onChange={(e) => {
-            onChange(e);
-          }}
-        />
+        {isTextArea ? (
+          <textarea
+            className={s.auth_input__textarea}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            className={s.auth_input__input}
+            type={type === 'password' && isPasswordVisible ? 'text' : type}
+            name={name}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          />
+        )}
 
         {type === 'password' && (
           <div className={s.pass_visibility_eye_wrapper}>
@@ -86,7 +105,7 @@ export const AuthInput: FC<AuthInputProps> = ({
         )}
       </fieldset>
 
-      {errorMessage && (
+      {submitError && (
         <p className={s.auth_input__error}>
           {errorMessage}
         </p>

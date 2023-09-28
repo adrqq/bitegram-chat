@@ -3,21 +3,21 @@ import { RootState } from '../interfaces/RootState';
 
 const initialState: RootState = {
   app: '',
-  isChatModalOpen: false,
+  isUserProfileModalOpen: false,
 };
 
 export const rootSlice = createSlice({
   name: 'root',
   initialState,
   reducers: {
-    handleModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.isChatModalOpen = action.payload;
+    setIsUserProfileModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isUserProfileModalOpen = action.payload;
     }
   },
 });
 
 export const {
-  handleModalOpen,
+  setIsUserProfileModalOpen,
 } = rootSlice.actions;
 
 export default rootSlice.reducer;

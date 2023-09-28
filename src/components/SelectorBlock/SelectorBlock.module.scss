@@ -21,11 +21,7 @@
     margin-bottom: 30px;
 
     &__title {
-      color: #000;
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 800;
-      line-height: normal;
+      @include pageTitle;
     }
 
     &__dashed_circle {

@@ -66,6 +66,7 @@ export const LinksModal: FC<LinksModalProps> = ({
               <NavLink
                 className={s.links_modal__link}
                 to={link.to}
+                onClick={closeModal}
               >
                 {link.text}
 

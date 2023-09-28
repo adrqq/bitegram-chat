@@ -47,6 +47,7 @@
   }
 
   &__left {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 40px;
@@ -86,6 +87,6 @@
 .links_modal_wrapper {
   z-index: 1;
   position: absolute;
-  top: 65px;
-  right: 30px;
+  top: 50px;
+  right: -15px;
 }

@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const ChatsPage: FC<Props> = () => {
-  const { isChatModalOpen } = useAppSelector((state) => state.rootSlice);
+  const { isUserProfileModalOpen } = useAppSelector((state) => state.rootSlice);
 
   return (
     <>
@@ -17,7 +17,7 @@ export const ChatsPage: FC<Props> = () => {
 
       <OpenChatView />
 
-      {isChatModalOpen && <ChatModal />}
+      {isUserProfileModalOpen && <ChatModal />}
     </>
   );
 }

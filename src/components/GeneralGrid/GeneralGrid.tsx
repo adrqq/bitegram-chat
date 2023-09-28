@@ -8,12 +8,12 @@ interface Props {
 }
 
 export const GeneralGrid: FC<Props> = ({ children }) => {
-  const { isChatModalOpen } = useAppSelector((state) => state.rootSlice);
+  const { isUserProfileModalOpen } = useAppSelector((state) => state.rootSlice);
 
   return (
     <div className={classNames(
-      { [s.grid]: !isChatModalOpen },
-      { [s.grid__with_module]: isChatModalOpen }
+      { [s.grid]: !isUserProfileModalOpen },
+      { [s.grid__with_module]: isUserProfileModalOpen }
     )}
     >
       {children}

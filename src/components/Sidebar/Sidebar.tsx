@@ -8,8 +8,10 @@ import testAvatar from '../../images/avatar.svg';
 import settingsIcon from '../../images/black-settings-logo.svg'
 import usersIcon from '../../images/black-users-logo.svg'
 import signoutIcon from '../../images/sign-out-logo-black.svg'
+import { useAppDispatch } from '../../hooks/redux';
 
 const Sidebar: FC = () => {
+  const dispatch = useAppDispatch();
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
   const navigate = useNavigate();
   const ignoreButtonRef = useRef<HTMLButtonElement>(null);
@@ -88,17 +90,16 @@ const Sidebar: FC = () => {
                 {
                   text: 'Profile',
                   icon: usersIcon,
-                  to: "test",
+                  to: "/app/user-profile",
                 },
                 {
                   text: 'Settings',
                   icon: settingsIcon,
-                  to: "test",
+                  to: "/app/settings",
                 },
                 {
                   text: 'Sign out',
                   icon: signoutIcon,
-                  to: "test",
                   onClick: () => console.log('sign out'),
                 },
               ]}
@@ -106,7 +107,7 @@ const Sidebar: FC = () => {
               ignoreButtonRef={ignoreButtonRef}
               width={'175px'}
               outerPadding={'15px'}
-              linkGap={'20px'}
+              linkGap={'10px'}
             />
           </div>
         )}

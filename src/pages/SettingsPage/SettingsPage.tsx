@@ -1,13 +1,14 @@
 import React from "react";
 import s from "./SettingsPage.module.scss";
 import userLogo from "../../images/Rectangle 31.png";
+import { GoBackButton } from "../../UI/GoBackButton";
 
 export const SettingsPage = () => {
   return (
     <div className={s.settings_page}>
       <div className={s.settings_page__wrapper}>
         <header className={s.settings_page__header}>
-          <div className={s.settings_page__icon__backspace} />
+          <GoBackButton />
           <h1 className={s.settings_page__title}> Settings </h1>
         </header>
 
@@ -69,3 +70,5 @@ export const SettingsPage = () => {
     </div>
   );
 };
+
+export default SettingsPage;

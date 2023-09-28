@@ -49,3 +49,5 @@ export const VerifyAccountPage = () => {
     </div>
   );
 };
+
+export default VerifyAccountPage;

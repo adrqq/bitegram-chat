@@ -26,3 +26,18 @@
   scrollbar-width: none;
   /* Hide scrollbar in Firefox */
 }
+
+@mixin pageTitle {
+  font-family: $main-font;
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin defaultHover {
+  &:hover {
+    background-color: rgba(99, 115, 129, 0.08)
+  }
+}

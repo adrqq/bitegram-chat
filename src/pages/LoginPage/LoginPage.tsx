@@ -21,6 +21,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
 
   const handleLogin = async () => {
     if (submitError) {
+
       return;
     }
 
@@ -84,6 +85,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required={true}
                 submitError={submitError}
+                setSubmitError={setSubmitError}
               />
             </div>
 
@@ -97,6 +99,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required={true}
                 submitError={submitError}
+                setSubmitError={setSubmitError}
               />
             </div>
 

@@ -1,4 +1,4 @@
 export interface RootState {
   app: '';
-  isChatModalOpen: boolean;
+  isUserProfileModalOpen: boolean;
 }

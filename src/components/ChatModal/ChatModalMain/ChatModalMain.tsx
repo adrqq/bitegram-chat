@@ -58,7 +58,7 @@ export const ChatModalMain = () => {
 
       <div className={s.chat_modal_main__media}>
         <p className={s.chat_modal_main__media__title}>
-        Media, Links & Docs
+          Media, Links & Docs
         </p>
 
         <div className={s.chat_modal_main__media}>
@@ -67,6 +67,7 @@ export const ChatModalMain = () => {
           </p>
           <div className={s.chat_modal_main__media__icon} />
         </div>
+      </div>
     </div>
   );
 };
