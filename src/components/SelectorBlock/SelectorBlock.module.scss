@@ -20,13 +20,27 @@
     align-items: center;
     margin-bottom: 30px;
 
+    &__buttons_wrapper {
+      display: flex;
+      gap: 25px;
+    }
+
     &__title {
       @include pageTitle;
     }
 
-    &__dashed_circle {
+    &__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-radius: 100%;
-      padding: 5px;
+      width: 32px;
+      height: 32px;
+
+      &__icon {
+        width: 24px;
+        height: 24px;
+      }
 
       &:hover {
         background-color: rgba(99, 115, 129, 0.08);

@@ -64,12 +64,7 @@ export const ChatModalMain = () => {
 
       <div className={s.black_row} />
 
-
-      <div className={s.chat_modal_main__media}>
-        <p className={s.chat_modal_main__media__title}>
-          Media, Links & Docs
-        </p>
-
+      <div>
         <div className={s.chat_modal_main__media}>
           <p className={s.chat_modal_main__media__title}>Media, Links & Docs</p>
 
@@ -131,17 +126,17 @@ export const ChatModalMain = () => {
         </div>
       </div>
 
-      <div className={s.black_row} style={{ margin: "1px" }} />
+      <div className={s.black_row} style={{margin: "1px"}} />
 
       <div className={s.chat_modal_main__control}>
         <button className={s.white_button}>
-          <div className={`${s.white_button__image} ${s.white_button__image__flag}`} />
+          <div className={`${s.white_button__image} ${s.white_button__image__flag}`}/>
 
           <p className={s.white_button__text}>block</p>
         </button>
 
         <button className={s.white_button}>
-          <div className={`${s.white_button__image} ${s.white_button__image__trash}`} />
+          <div className={`${s.white_button__image} ${s.white_button__image__trash}`}/>
 
           <p className={s.white_button__text}>delete</p>
         </button>
