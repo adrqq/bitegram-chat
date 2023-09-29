@@ -1,90 +1,151 @@
-import { FC, useState } from "react";
-import s from "./SelectorBlock.module.scss";
-import { SearchBar } from "../SearchBar/";
-import { ChatItem } from "../ChatItem";
+  import { FC, useState } from "react";
+  import s from "./SelectorBlock.module.scss";
+  import { SearchBar } from "../SearchBar/";
+  import { ChatItem } from "../ChatItem";
 
-import { ArchivedBar } from "../ArchivedBar/ArchivedBar";
-import { useAppSelector, useAppDispatch } from "../../hooks/redux";
+  import { ArchivedBar } from "../ArchivedBar/ArchivedBar";
+  import { useAppSelector, useAppDispatch } from "../../hooks/redux";
 
-import dashedCircleIcon from "../../images/dashed-circle.svg";
-import peopleIcon from "../../images/people-dimmed-icon.svg";
-import Modal from "../../UI/Modal/Modal";
+  import dashedCircleIcon from "../../images/dashed-circle.svg";
+  import peopleIcon from "../../images/people-dimmed-icon.svg";
+  import Modal from "../../UI/Modal/Modal";
+  import classNames from "classnames";
 
-interface Props {}
+  interface Props {}
 
-export const SelectorBlock: FC<Props> = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <>
-        <Modal isOpen={true} onClose={() => setIsOpen(false)}>
-          123
-        </Modal>
+  enum Tabs {
+    EXPLORE = "Explore",
+    FRIENDS = "Friends",
+    REQUEST = "Request",
+  }
 
 
-      <div className={s.selector_block}>
-        <div className={s.selector_block__sticky}>
-          <div className={s.selector_block__head}>
-            <h1 className={s.selector_block__head__title}>Chats</h1>
+  export const SelectorBlock: FC<Props> = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState(Tabs.EXPLORE);
 
-            <div className={s.selector_block__head__buttons_wrapper}>
-              <button className={s.selector_block__head__button}
-                onClick={() => {
-                  setIsOpen(true);
-                  console.log('test');
-                }}
+    return (
+      <>
+          <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <div className={s.modal}>
+              <button
+                onClick={() => setActiveTab(Tabs.EXPLORE)}
+                className={classNames(
+                  s.modal__button,
+                  [activeTab === Tabs.EXPLORE ? s.modal__button__active : ""]
+                )}
               >
-                <img
-                  src={peopleIcon}
-                  alt="dashed-circle"
-                  className={s.selector_block__head__button__icon}
-                />
+                Explore
               </button>
 
-              <button className={s.selector_block__head__button}>
-                <img
-                  src={dashedCircleIcon}
-                  alt="dashed-circle"
-                  className={s.selector_block__head__button__icon}
-                />
+              <button
+                onClick={() => setActiveTab(Tabs.FRIENDS)}
+                className={classNames(
+                  s.modal__button,
+                  [activeTab === Tabs.FRIENDS ? s.modal__button__active : ""]
+                )}
+              >
+                Friends
+              </button>
+
+              <button
+                onClick={() => setActiveTab(Tabs.REQUEST)}
+                className={classNames(
+                  s.modal__button,
+                  [activeTab === Tabs.REQUEST ? s.modal__button__active : ""]
+                )}
+              >
+                Request
               </button>
             </div>
+
+            <div>
+              {activeTab === Tabs.EXPLORE && (
+                <div>
+                  <h1>Explore</h1>
+                </div>
+              )}
+
+              {activeTab === Tabs.FRIENDS && (
+                <div>
+                  <h1>Friends</h1>
+                </div>
+              )}
+
+              {activeTab === Tabs.REQUEST && (
+                <div>
+                  <h1>Request</h1>
+                </div>
+              )}
+            </div>
+
+
+          </Modal>
+
+
+        <div className={s.selector_block}>
+          <div className={s.selector_block__sticky}>
+            <div className={s.selector_block__head}>
+              <h1 className={s.selector_block__head__title}>Chats</h1>
+
+              <div className={s.selector_block__head__buttons_wrapper}>
+                <button className={s.selector_block__head__button}
+                  onClick={() => {
+                    setIsOpen(true);
+                    console.log('test');
+                  }}
+                >
+                  <img
+                    src={peopleIcon}
+                    alt="dashed-circle"
+                    className={s.selector_block__head__button__icon}
+                  />
+                </button>
+
+                <button className={s.selector_block__head__button}>
+                  <img
+                    src={dashedCircleIcon}
+                    alt="dashed-circle"
+                    className={s.selector_block__head__button__icon}
+                  />
+                </button>
+              </div>
+            </div>
+
+            <div className={s.selector_block__search_bar}>
+              <SearchBar />
+            </div>
+
+            <div className={s.selector_block__archive_bar}>
+              <ArchivedBar />
+            </div>
+
+            <div className={s.selector_block__border} />
           </div>
 
-          <div className={s.selector_block__search_bar}>
-            <SearchBar />
+          <div className={s.selector_block__pinned}>
+            <h2 className={s.selector_block__subtitle}>Pinned</h2>
           </div>
 
-          <div className={s.selector_block__archive_bar}>
-            <ArchivedBar />
+          <ul className={s.chats_list}>
+            <ChatItem />
+            <ChatItem />
+          </ul>
+
+          <div className={s.selector_block__all}>
+            <h2 className={s.selector_block__subtitle}>All Chats</h2>
           </div>
 
-          <div className={s.selector_block__border} />
+          <ul className={s.chats_list}>
+            <ChatItem />
+            <ChatItem />
+            <ChatItem />
+            <ChatItem />
+            <ChatItem />
+            <ChatItem />
+            <ChatItem />
+          </ul>
         </div>
-
-        <div className={s.selector_block__pinned}>
-          <h2 className={s.selector_block__subtitle}>Pinned</h2>
-        </div>
-
-        <ul className={s.chats_list}>
-          <ChatItem />
-          <ChatItem />
-        </ul>
-
-        <div className={s.selector_block__all}>
-          <h2 className={s.selector_block__subtitle}>All Chats</h2>
-        </div>
-
-        <ul className={s.chats_list}>
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-        </ul>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  };
