@@ -6,23 +6,23 @@
   height: 100%;
   display: flex;
   align-items: center;
-  border-radius: 20px;
-  background: $search-bar--color;
+  justify-content: center;
+  position: relative;
 
   &__search_button {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-top: 3px;
     cursor: text;
   }
 
   &__search_icon {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
 
   &__funnel_icon {
     position: absolute;
-    right: 10px;
+    right: 15px;
     border-radius: 50%;
   }
 
@@ -38,6 +38,14 @@
     color: #000000;
     border-radius: 20px;
     background: transparent;
+    padding-left: 20px;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px $search-bar--color inset !important;
+    }
 
     &::placeholder {
       color: #709CE6;

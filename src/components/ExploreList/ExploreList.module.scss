@@ -1,0 +1,10 @@
+@import '../../utils/mixins.module.scss';
+@import '../../utils/vars.module.scss';
+
+.friends_list {}
+
+.search_bar__wrapper {
+  height: 50px;
+  border: 2px solid $search-bar--color;
+  border-radius: 10px;
+}
