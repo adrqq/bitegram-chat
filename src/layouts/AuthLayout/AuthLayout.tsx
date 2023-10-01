@@ -4,17 +4,20 @@ import s from './AuthLayout.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 import ovlIcon from '../../images/main-app-logo.svg';
+import { useAppSelector } from '../../hooks/redux';
 
 interface AuthLayoutProps { }
 
 export const AuthLayout: FC<AuthLayoutProps> = () => {
-  const isUserLoggedIn = false;
-  const navigate = useNavigate();
+  // const isUserLoggedIn = false;
+  // const { isUserAuth } = useAppSelector((state) => state.authSlice);
 
-  if (isUserLoggedIn) {
-    navigate('/app', { replace: true });
-  }
+  // const navigate = useNavigate();
 
+  // if (isUserAuth) {
+  //   navigate('/app', { replace: true });
+  // }
+        
   return (
     <div className={s.auth}>
       <div className={s.auth__container}>
