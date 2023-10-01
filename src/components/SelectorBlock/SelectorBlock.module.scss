@@ -50,6 +50,8 @@
 
   &__search_bar {
     height: 50px;
+    background: $search-bar--color;
+    border-radius: 16px;
     margin-bottom: 32px;
     padding-bottom: 1px;
   }
@@ -88,31 +90,6 @@
     top: 0;
     background-color: #F8FAFF;
     padding-top: 30px;
-  }
-}
-
-.modal {
-  padding: 30px;
-  padding-bottom: 40px;
-  display: flex;
-  gap: 40px;
-}
-
-.modal__button {
-  position: relative;
-  
-
-  &__active {
-
-    &::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      background-color: #1A61DB;
-      bottom: -12px;
-      left: 0;
-    }
   }
 }
 

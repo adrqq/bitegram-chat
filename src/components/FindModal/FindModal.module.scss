@@ -1,3 +1,39 @@
-.find_module {
-  
+.modal {
+  padding: 30px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 500px;
+  // height: 100%;
+
+  &__routes {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 40px;
+  }
+
+  &__button {
+    position: relative;
+
+    &__text {
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    &__active {
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        border-radius: 10px;
+        height: 2px;
+        background-color: #1A61DB;
+        bottom: -12px;
+        left: 0;
+      }
+    }
+  }
 }
