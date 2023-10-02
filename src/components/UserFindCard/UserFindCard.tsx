@@ -1,18 +1,15 @@
 import React, { FC } from 'react';
-import s from './ChatItem.module.scss';
+import s from './UserFindCard.module.scss';
 import classNames from 'classnames';
 
 import dummyAvatar from '../../images/avatar.svg'
 
-export const ChatItem: FC = () => {
+export const UserFindCard: FC = () => {
   const selected = false;
 
   return (
     <button
-      className={classNames(s.chat__container,
-        selected && s.chat__container__selected,
-        !selected && s.chat__container__unselected
-      )}
+      className={s.chat__container}
     >
       <div className={s.chat_item}>
         <div className={s.chat__info__wrapper}>
@@ -32,26 +29,18 @@ export const ChatItem: FC = () => {
               Pink Panda
             </p>
 
-            <p
-              className={classNames(s.chat__last__message,
-                selected && s.chat__last__message__selected,
-                !selected && s.chat__last__message__unselected
-              )}
-            >
-              You: thnx!
-            </p>
+            {false && (
+              <p
+                className={s.chat__last__message}
+              >
+                You: thnx!
+              </p>
+            )}
           </div>
-        </div>
-
-        <div
-          className={classNames(s.chat__time,
-            selected && s.chat__time__selected,
-            !selected && s.chat__time__unselected
-          )}
-        >
-          <p>12:00</p>
         </div>
       </div>
     </button >
   );
 };
+
+export default UserFindCard;

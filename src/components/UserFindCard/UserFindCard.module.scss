@@ -8,21 +8,18 @@
     border-radius: 15px;
     justify-content: center;
     padding: 17px;
+    background: #fff;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
 
     align-self: center;
 
-    &__selected {
-      border-radius: 15px;
-      background: $default-light-blue;
-    }
-
-    &__unselected {
-      background: #fff;
-
-      &:hover {
-        background-color: #f5f5f5;
-      }
-    }
+    // &__selected {
+    //   border-radius: 15px;
+    //   background: $default-light-blue;
+    // }
   }
 
   &_item {

@@ -7,4 +7,20 @@
   height: 50px;
   border: 2px solid $search-bar--color;
   border-radius: 10px;
+  position: sticky;
+  top: 0;
+  display: flex;
+  background-color: $default-white;
+  opacity: 0.9;
+}
+
+.user_list__wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
 }

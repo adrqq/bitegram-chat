@@ -1,11 +1,12 @@
+@import '../../utils/mixins.module.scss';
+@import '../../utils/vars.module.scss';
+
 .modal {
-  padding: 30px;
-  padding-bottom: 40px;
+  padding: 30px 30px 0 30px;
   display: flex;
   flex-direction: column;
   gap: 40px;
   width: 500px;
-  // height: 100%;
 
   &__routes {
     display: flex;
@@ -35,5 +36,13 @@
         left: 0;
       }
     }
+  }
+
+  &__content {
+    min-height: 50vh;
+    max-height: 50vh;
+    overflow-y: auto;
+
+    @include hideScrollbar;
   }
 }
