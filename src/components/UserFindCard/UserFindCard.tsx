@@ -4,7 +4,19 @@ import classNames from 'classnames';
 
 import dummyAvatar from '../../images/avatar.svg'
 
-export const UserFindCard: FC = () => {
+interface UserFindCardProps {
+  user: {
+    nickname: string;
+    id: string;
+  };
+}
+
+export const UserFindCard: FC<UserFindCardProps> = ({
+  user = {
+    nickname: 'User',
+    id: '1',
+  },
+}) => {
   const selected = false;
 
   return (
@@ -26,7 +38,7 @@ export const UserFindCard: FC = () => {
                 !selected && s.chat__title__unselected
               )}
             >
-              Pink Panda
+              {user.nickname}
             </p>
 
             {false && (

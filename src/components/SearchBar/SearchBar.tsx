@@ -1,20 +1,56 @@
-import React, { FC, useRef, HTMLInputTypeAttribute } from 'react';
+import React, { FC, useRef, HTMLInputTypeAttribute, useEffect, useState } from 'react';
 import s from './SearchBar.module.scss';
 
 import searchIcon from '../../images/blue-search-icon.svg';
 import funnelIcon from '../../images/funnel-icon.svg';
 
-interface SearchBarProps { }
+interface SearchBarProps {
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  type?: HTMLInputTypeAttribute;
+  name?: string;
+  onSearch?: (query: string) => void;
+}
 
-export const SearchBar: FC<SearchBarProps> = () => {
-  const inputRef = useRef(null);
+export const SearchBar: FC<SearchBarProps> = ({
+  value = '',
+  onChange = () => {},
+  placeholder = 'Search',
+  type = 'text',
+  name = 'search',
+  onSearch = () => {},
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [searchQuery, setSearchQuery] = useState(value);
 
   const handleSearchIconClick = () => {
-    const inputElement: any = inputRef.current;
+    const inputElement = inputRef.current;
 
     if (inputElement) {
       inputElement.focus();
     }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // useEffect(() => {
+  //   // Call the onSearch function after a 1-second timeout when the value changes
+  //   const timeoutId = setTimeout(() => {
+  //     onSearch(searchQuery);
+  //   }, 1000);
+
+  //   return () => {
+  //     // Clear the timeout when the component unmounts or when the value changes
+  //     clearTimeout(timeoutId);
+  //   };
+  // }, [searchQuery, onSearch]);
+
+  const handleInputBlur = () => {
+    // Call onSearch immediately when the input loses focus
+    onSearch(searchQuery);
   };
 
   return (
@@ -23,7 +59,6 @@ export const SearchBar: FC<SearchBarProps> = () => {
         className={s.search_bar__search_button}
         type="button"
         onClick={handleSearchIconClick}
-        ref={inputRef}
       >
         <img
           className={s.search_bar__search_icon}
@@ -32,11 +67,14 @@ export const SearchBar: FC<SearchBarProps> = () => {
         />
       </button>
       <input
-        type="text"
-        placeholder="Search"
+        value={searchQuery}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        type={type}
+        placeholder={placeholder}
         className={s.search_bar__input}
-        id="search"
-        name="search"
+        id={name}
+        name={name}
         ref={inputRef}
       />
       <button className={s.search_bar__funnel_icon}>
@@ -44,4 +82,4 @@ export const SearchBar: FC<SearchBarProps> = () => {
       </button>
     </div>
   );
-}
+};

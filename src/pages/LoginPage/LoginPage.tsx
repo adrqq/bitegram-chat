@@ -45,7 +45,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
 
       if (res.payload) {
         console.log("user is activated and logged in");
-        navigate("/app", { replace: true });
+        navigate("/app/chats", { replace: true });
       }
     });
   };

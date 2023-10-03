@@ -33,7 +33,7 @@ export const Router: FC = () => {
       element: <DefaultLayout />,
       children: [
         {
-          path: '/app/  ',
+          path: '/app/chats',
           element: <ChatsPage />,
         },
         {
