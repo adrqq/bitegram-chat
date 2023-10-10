@@ -3,18 +3,20 @@
 
 .auth_input {
   width: 100%;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   transition: border 0.1s ease-in-out;
   position: relative;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 
-  &:hover {
-    border: 1px solid #000000;
+  &__hover {
+    &:hover {
+      border: 1px solid #000000;
+    }
   }
 
   &__legend {
-    color: #919EAB;
+    color: #919eab;
     font-size: 14px;
     font-weight: 400;
     margin-left: 10px;
@@ -34,8 +36,12 @@
 
     @include hideScrollbar;
 
+    &:disabled {
+      background-color: #fff;
+    }
+
     &::placeholder {
-      color: #919EAB;
+      color: #919eab;
     }
   }
 
@@ -48,13 +54,17 @@
     font-weight: 600;
     border-radius: 8px;
 
+    &:disabled {
+      background-color: #fff;
+    }
+
     &::placeholder {
-      color: #919EAB;
+      color: #919eab;
     }
   }
 
   &__error {
-    color: #FF0000;
+    color: #ff0000;
     opacity: 0.8;
     font-size: 14px;
     font-weight: 400;

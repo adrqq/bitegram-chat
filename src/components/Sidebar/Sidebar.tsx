@@ -10,6 +10,8 @@ import usersIcon from '../../images/black-users-logo.svg'
 import signoutIcon from '../../images/sign-out-logo-black.svg'
 import { Swiper } from '../../UI/Swiper/Swiper';
 import { useAppDispatch } from '../../hooks/redux';
+import { log } from 'console';
+import { logout } from '../../redux/slices/authSlice';
 
 const Sidebar: FC = () => {
   const dispatch = useAppDispatch();
@@ -107,7 +109,7 @@ const Sidebar: FC = () => {
                 {
                   text: 'Sign out',
                   icon: signoutIcon,
-                  onClick: () => console.log('sign out'),
+                  onClick: () => dispatch(logout()),
                 },
               ]}
               closeModal={() => setIsLinksModalOpen(false)}

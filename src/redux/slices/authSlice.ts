@@ -4,7 +4,7 @@ import AuthService from "../../services/AuthService";
 
 
 interface AuthState {
-  user: IUser | {};
+  user: IUser;
   isUserAuth: boolean;
   activationEmail: string;
 
@@ -16,7 +16,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: {},
+  user: {} as IUser,
   isUserAuth: false,
   activationEmail: "",
 
@@ -80,24 +80,47 @@ export const register = createAsyncThunk(
 );
 
 export const checkAuth = createAsyncThunk(
-  "checkAuth",
+  'checkAuth',
   async (_, { rejectWithValue }) => {
     try {
       const response = await AuthService.checkAuth();
 
-      console.log("response", response);
+      console.log('response', response);
+
+      localStorage.setItem('token', response.data.accessToken);
+
+      if (typeof response.data === 'string') {
+        return rejectWithValue(response.data as string);
+      }
 
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.accessToken);
-        
         return response.data.user;
       }
 
-      return rejectWithValue('Invalid response from the server');
+      return rejectWithValue(response.data);
     } catch (e: any) {
-      return rejectWithValue(`Authentication failed: ${e.message}`);
+      return rejectWithValue(e.message);
     }
-  }
+  },
+);
+
+export const logout = createAsyncThunk(
+  'logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await AuthService.logout();
+
+      localStorage.removeItem('token');
+
+      if (response.status === 200) {
+        return response.data;
+      }
+
+      return rejectWithValue(response.data);
+    } catch (e: any) {
+      return rejectWithValue(e.message);
+    }
+  },
 );
 
 export const authSlice = createSlice({
@@ -139,6 +162,21 @@ export const authSlice = createSlice({
       state.isUserAuth = true;
       state.user = action.payload;
       console.log("checkAuth", action.payload);
+    },
+    [checkAuth.rejected.type]: (state, action) => {
+      const email = action.payload as string;
+
+      state.isUserAuth = false;
+      state.user = {} as IUser;
+      state.activationEmail = email;
+      console.log('checkAuth.rejected', action.payload);
+    },
+    [logout.fulfilled.type]: (state) => {
+      state.isUserAuth = false;
+      state.user = {} as IUser;
+      state.activationEmail = "";
+
+      localStorage.removeItem('token');
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import s from "./LoginPage.module.scss";
 import AuthInput from "../../UI/AuthInput/AuthInput";
@@ -6,7 +6,7 @@ import AuthInput from "../../UI/AuthInput/AuthInput";
 import googleAuthIcon from '../../images/google-auth-icon.svg';
 import githubAuthIcon from '../../images/github-auth-icon.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { login } from '../../redux/slices/authSlice';
+import { checkAuth, login } from '../../redux/slices/authSlice';
 
 interface LoginPageProps { }
 

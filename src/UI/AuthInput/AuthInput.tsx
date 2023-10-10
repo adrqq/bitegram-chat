@@ -3,6 +3,7 @@ import s from './AuthInput.module.scss';
 
 import eyeOpen from '../../images/pass-eye-open.svg';
 import eyeClosed from '../../images/pass-eye-closed.svg';
+import classNames from 'classnames';
 
 interface AuthInputProps {
   legend: string;
@@ -10,12 +11,14 @@ interface AuthInputProps {
   name: string;
   placeholder: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   required?: boolean;
   errorMessage?: string;
   submitError?: boolean;
   setSubmitError?: (value: boolean) => void;
   isTextArea?: boolean;
+  disabled?: boolean;
+  isHover?: boolean;
 }
 
 export const AuthInput: FC<AuthInputProps> = ({
@@ -29,6 +32,8 @@ export const AuthInput: FC<AuthInputProps> = ({
   submitError = false,
   setSubmitError = () => { },
   isTextArea = false,
+  disabled = false,
+  isHover = true
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,7 +69,13 @@ export const AuthInput: FC<AuthInputProps> = ({
 
   return (
     <div className={s.auth_input_wrapper}>
-      <fieldset className={s.auth_input}>
+      <fieldset
+        className={classNames(
+          s.auth_input,
+          { [s.auth_input__hover]: isHover },
+          { [s.auth_input__error]: submitError }
+        )}
+      >
         <legend className={s.auth_input__legend}>
           {legend}
         </legend>
@@ -76,6 +87,7 @@ export const AuthInput: FC<AuthInputProps> = ({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            disabled={disabled}
           />
         ) : (
           <input
@@ -85,6 +97,7 @@ export const AuthInput: FC<AuthInputProps> = ({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            disabled={disabled}
           />
         )}
 

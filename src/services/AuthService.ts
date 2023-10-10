@@ -33,4 +33,10 @@ export default class AuthService {
 
     return response;
   }
+
+  static async logout(): Promise<AxiosResponse<AuthResponse>> {
+    const response = await axios.post<AuthResponse>(`${BASE_URL}/auth/logout`, null, { withCredentials: true });
+    
+    return response;
+  }
 }

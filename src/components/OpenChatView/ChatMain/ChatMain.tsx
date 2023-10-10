@@ -115,10 +115,10 @@ export const ChatMain = () => {
         <div className={s.black_row} />
       </div>
 
-      {messages.map((massage) => {
+      {messages.map((massage, index) => {
         if (massage.user.userId === userLogged.userId) {
           return (
-            <div className={s.chat_main__user_massage}>
+            <div key={index} className={s.chat_main__user_massage}>
               <p className={s.chat_main__user_massage__text}>
                 {massage.text}
               </p>
@@ -130,7 +130,7 @@ export const ChatMain = () => {
           );
         } else {
           return (
-            <div className={s.chat_main__foreign_massage}>
+            <div key={index} className={s.chat_main__foreign_massage}>
               <p className={s.chat_main__foreign_massage__text}>
                 {massage.text}
               </p>

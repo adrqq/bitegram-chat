@@ -1,6 +1,7 @@
 import { Suspense, lazy, FC } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import { LoadingPage } from "../pages/LoadingPage";
+import { useAppSelector } from "../hooks/redux";
 
 const Loadable = (Component: any) => (props: any) => {
   return (
@@ -11,6 +12,7 @@ const Loadable = (Component: any) => (props: any) => {
 };
 
 export const Router: FC = () => {
+  const { isUserAuth } = useAppSelector((state) => state.authSlice);
 
   const routes = useRoutes([
     {
@@ -26,7 +28,7 @@ export const Router: FC = () => {
     },
     {
       path: '/',
-      element: <Navigate to="/app/chats" />,
+      element: isUserAuth ? <Navigate to="/app/chats" /> : <Navigate to="/auth/login" />,
     },
     {
       path: '/',
@@ -44,6 +46,10 @@ export const Router: FC = () => {
           path: '/app/user-profile',
           element: <ProfilePage />,
         },
+        {
+          path: '/app/others-profile/:id',
+          element: <OthersProfileBlock />,
+        }
       ]
     },
   ]);
@@ -56,6 +62,7 @@ const ChatsPage = Loadable(lazy(() => import("../pages/ChatsPage/ChatsPage")));
 const ProfilePage = Loadable(lazy(() => import("../pages/ProfilePage/ProfilePage")));
 const SettingsPage = Loadable(lazy(() => import("../pages/SettingsPage/SettingsPage")));
 const FindModal = Loadable(lazy(() => import("../components/FindModal/FindModal")));
+const OthersProfileBlock = Loadable(lazy(() => import("../components/OtherProfileBlock/OthersProfileBlock")));
 
 const AuthLayout = Loadable(lazy(() => import("../layouts/AuthLayout/AuthLayout")));
 const LoginPage = Loadable(lazy(() => import("../pages/LoginPage/LoginPage")));

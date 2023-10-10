@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect } from "react";
+import { BASE_URL } from "./http";
+import { ReactElement, useEffect } from "react";
 import { Router } from "./routes";
 import "./App.module.scss";
 import { useAppDispatch } from "./hooks/redux";
@@ -10,23 +11,27 @@ function App(): ReactElement {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      console.log("check auth");
+    const checkAuthStatus = async () => {
+      if (localStorage.getItem('token')) {
+        console.log('check auth');
+  
+        await dispatch(checkAuth()).then((res: any) => {
+          if (typeof res === 'string') {
+            navigate('/auth/verify', { replace: true });
 
-      dispatch(checkAuth()).then((res: any) => {
-        if (!res) {
-          console.log("error");
-
-          return;
-        }
-
-        navigate("/app/chats");
-
-        console.log(`res`, res);
-      });
+            return;
+          }
+  
+            if (res) {
+              navigate('/app/chats', { replace: true });
+            }
+        });
+      }
     }
+
+    checkAuthStatus();
   }, []);
-    
+
   return (
     <>
       <Router />

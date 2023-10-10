@@ -1,4 +1,4 @@
-import React, { FC, useRef, HTMLInputTypeAttribute, useEffect, useState } from 'react';
+import React, { FC, useRef, HTMLInputTypeAttribute, useEffect, useState, KeyboardEvent } from 'react';
 import s from './SearchBar.module.scss';
 
 import searchIcon from '../../images/blue-search-icon.svg';
@@ -36,17 +36,31 @@ export const SearchBar: FC<SearchBarProps> = ({
     setSearchQuery(event.target.value);
   };
 
-  // useEffect(() => {
-  //   // Call the onSearch function after a 1-second timeout when the value changes
-  //   const timeoutId = setTimeout(() => {
-  //     onSearch(searchQuery);
-  //   }, 1000);
+  const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      // Call onSearch when Enter key is pressed
+      onSearch(searchQuery);
+    }
+  };
 
-  //   return () => {
-  //     // Clear the timeout when the component unmounts or when the value changes
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [searchQuery, onSearch]);
+  useEffect(() => {
+    // Clear the previous timeout when the input changes
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    // Create a new timeout for the current searchQuery
+    if (searchQuery !== '') {
+      timeoutId = setTimeout(() => {
+        onSearch(searchQuery);
+      }, 1000);
+    }
+
+    return () => {
+      // Clear the previous timeout when the component unmounts or when the value changes
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [searchQuery]);
 
   const handleInputBlur = () => {
     // Call onSearch immediately when the input loses focus
@@ -69,6 +83,7 @@ export const SearchBar: FC<SearchBarProps> = ({
       <input
         value={searchQuery}
         onChange={handleInputChange}
+        onKeyDown={handleInputKeyDown}
         onBlur={handleInputBlur}
         type={type}
         placeholder={placeholder}
