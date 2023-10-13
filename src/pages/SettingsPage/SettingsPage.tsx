@@ -2,8 +2,11 @@ import React from "react";
 import s from "./SettingsPage.module.scss";
 import userLogo from "../../images/Rectangle 31.png";
 import { GoBackButton } from "../../UI/GoBackButton";
+import { useNavigate } from "react-router-dom";
 
 export const SettingsPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={s.settings_page}>
       <div className={s.settings_page__wrapper}>
@@ -25,7 +28,9 @@ export const SettingsPage = () => {
         </main>
 
         <ul className={s.settings_page__list}>
-          <button className={s.settings_page__item}>
+          <button className={s.settings_page__item}
+            onClick={() => navigate("/notification")}
+          >
             <div className={`${s.settings_page__item__icon__notification} ${s.settings_page__item__icon}`} />
             <div className={s.settings_page__item__title}>Notification</div>
           </button>

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from './OthersProfileBlock.module.scss';
 import { GoBackButton } from '../../UI/GoBackButton';
 import { AuthInput } from '../../UI/AuthInput';
@@ -8,43 +8,71 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { sendFriendRequestSocket } from '../../socketio/user-socket';
 import socket from '../../socketio/user-socket';
 import { IFriendRequest } from '../../models/IFriendRequest';
-import { sendFriendRequest } from '../../redux/slices/userSlice';
+import {
+  checkFriendStatus,
+  sendFriendRequest,
+} from '../../redux/slices/userSlice';
+import classNames from 'classnames';
 
 interface ProfileBlockProps {}
 
+enum ProfileStatus {
+  FRIEND = 'FRIEND',
+  FRIEND_REQUEST_SENT = 'FRIEND_REQUEST_SENT',
+  FRIEND_REQUEST_RECEIVED = 'FRIEND_REQUEST_RECEIVED',
+  NOT_FRIEND = 'NOT_FRIEND',
+}
+
 export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const dispatch = useAppDispatch();
-  const { friendRequestSent } = useAppSelector((state) => state.userSlice);
+
+  const { selectedUser } = useAppSelector(
+    (state) => state.userSlice
+  );
+  const { user } = useAppSelector((state) => state.authSlice);
 
   const [bio, setBio] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
-
-  const { selectedUser } = useAppSelector((state) => state.userSlice);
-  const { user } = useAppSelector((state) => state.authSlice);
+  const [profileStatus, setProfileStatus] = useState<string>(
+    ProfileStatus.NOT_FRIEND
+  );
 
   console.log(`selectedUser`, selectedUser);
 
-  const [addFriend, setAddFriend] = useState<boolean>(false);
+  useEffect(() => {
+    dispatch(
+      checkFriendStatus({
+        userId: user.id,
+        friendId: selectedUser.id,
+      })
+    ).then((response) => {
+      console.log(`response`, response.payload);
 
-  // Add a conditional check to ensure selectedUser is defined
-  if (!selectedUser) {
-    return (
-      <div>
-        <h1>404</h1>
-        <h2>User not found</h2>
-      </div>
-    );
-  }
+      switch (response.payload) {
+        case 'FRIEND':
+          setProfileStatus(ProfileStatus.FRIEND);
+          break;
+        case 'FRIEND_REQUEST_SENT':
+          setProfileStatus(ProfileStatus.FRIEND_REQUEST_SENT);
+          break;
+        case 'FRIEND_REQUEST_RECEIVED':
+          setProfileStatus(ProfileStatus.FRIEND_REQUEST_RECEIVED);
+          break;
+        case 'NOT_FRIEND':
+          setProfileStatus(ProfileStatus.NOT_FRIEND);
+          break;
+        default:
+          break;
+      }
+    });
+  }, []);
 
   socket.on('newFriendRequest', async (data: IFriendRequest) => {
     console.log('newFriendRequest', data);
 
-    await dispatch(sendFriendRequest(data))
-      .then(() => {
-
-        console.log('friend request sent');
-        setAddFriend(true);
-      })
+    await dispatch(sendFriendRequest(data)).then(() => {
+      console.log('friend request sent');
+    });
   });
 
   const handleAddFriend = () => {
@@ -54,6 +82,15 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
 
     sendFriendRequestSocket(user.id, selectedUser.id);
   };
+
+  if (!selectedUser) {
+    return (
+      <div>
+        <h1>404</h1>
+        <h2>User not found</h2>
+      </div>
+    );
+  }
 
   return (
     <div className={s.profile_block}>
@@ -121,9 +158,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             />
           </div>
 
-          {addFriend ? (
-            <div>sdsds</div>
-          ) : (
+          {profileStatus === ProfileStatus.NOT_FRIEND && (
             <button
               type="button"
               className={s.save_btn}
@@ -132,6 +167,33 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
               <p className={s.save_btn__text}>Add</p>
             </button>
           )}
+
+          {profileStatus === ProfileStatus.FRIEND_REQUEST_SENT && (
+            <button
+              type="button"
+              className={classNames(
+                s.save_btn,
+                s.save_btn__sent_request
+              )}
+              onClick={handleAddFriend}
+              disabled
+              style={{ backgroundColor: 'gray' }}
+            >
+              <p className={s.save_btn__text}>Request sent</p>
+            </button>
+          )}
+
+          {profileStatus === ProfileStatus.FRIEND_REQUEST_RECEIVED && (
+            <button
+              type="button"
+              className={s.save_btn}
+              onClick={handleAddFriend}
+              style={{ backgroundColor: '#32CD32' }}
+            >
+              <p className={s.save_btn__text}>Accept</p>
+            </button>
+          )}
+
         </form>
       </div>
     </div>

@@ -7,19 +7,23 @@ interface UserState {
   selectedUser: IUser;
   friendRequestSent: IFriend[];
   friendRequestReceived: IFriend[];
+  ProfileUserStatus: string;
 }
 
 const initialState: UserState = {
   selectedUser: {} as IUser,
   friendRequestSent: [],
   friendRequestReceived: [],
+  ProfileUserStatus: '',
 };
 
 export const searchUsers = createAsyncThunk(
   "searchUsers",
-  async (searchQuery: string, { rejectWithValue }) => {
+  async (payload: { searchQuery: string, userId: string }, { rejectWithValue }) => {
     try {
-      const response = await UserService.searchUsers(searchQuery);
+      console.log('searchQuery', payload.searchQuery); // Debugging
+
+      const response = await UserService.searchUsers(payload.searchQuery, payload.userId);
 
       return response.data;
     } catch (e: any) {
@@ -27,6 +31,7 @@ export const searchUsers = createAsyncThunk(
     }
   }
 );
+
 
 export const getUserById = createAsyncThunk(
   'getUserById',
@@ -60,6 +65,21 @@ export const sendFriendRequest = createAsyncThunk(
   }
 );
 
+export const checkFriendStatus = createAsyncThunk(
+  'checkFriendStatus',
+  async (params: { userId: string, friendId: string }, { rejectWithValue }) => {
+    try {
+      const response = await UserService.checkFriendStatus(params.userId, params.friendId);
+      console.log('checkFriendStatus response:', response); // Debugging
+
+      return response.data;
+    } catch (error) {
+      console.error('checkFriendStatus error:', error); // Debugging
+      return rejectWithValue(false);
+    }
+  }
+);
+
 
 export const userSlice = createSlice({
   name: "user",
@@ -79,7 +99,12 @@ export const userSlice = createSlice({
     [sendFriendRequest.fulfilled.type]: (state, action: PayloadAction<any>) => {
       console.log("action", action);
       state.friendRequestSent.push(action.payload);
-    }
+    },
+
+    [checkFriendStatus.fulfilled.type]: (state, action: PayloadAction<any>) => {
+      console.log("checkFriendStatus action", action);
+      state.ProfileUserStatus = action.payload;
+    },
   },
 });
 

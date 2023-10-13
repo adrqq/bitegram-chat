@@ -1,7 +1,7 @@
-import { Suspense, lazy, FC } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
-import { LoadingPage } from "../pages/LoadingPage";
-import { useAppSelector } from "../hooks/redux";
+import { Suspense, lazy, FC } from 'react';
+import { Navigate, useRoutes } from 'react-router-dom';
+import { LoadingPage } from '../pages/LoadingPage';
+import { useAppSelector } from '../hooks/redux';
 
 const Loadable = (Component: any) => (props: any) => {
   return (
@@ -16,19 +16,23 @@ export const Router: FC = () => {
 
   const routes = useRoutes([
     {
-      path: "/auth",
+      path: '/auth',
       element: <AuthLayout />,
       children: [
-        { path: "login", element: <LoginPage /> },
-        { path: "register", element: <RegisterPage /> },
+        { path: 'login', element: <LoginPage /> },
+        { path: 'register', element: <RegisterPage /> },
         // { path: "reset-password", element: <ResetPasswordPage /> },
         // { path: "new-password", element: <NewPasswordPage /> },
-        { path: "verify", element: <VerifyAccountPage /> },
+        { path: 'verify', element: <VerifyAccountPage /> },
       ],
     },
     {
       path: '/',
-      element: isUserAuth ? <Navigate to="/app/chats" /> : <Navigate to="/auth/login" />,
+      element: isUserAuth ? (
+        <Navigate to="/app/chats" />
+      ) : (
+        <Navigate to="/auth/login" />
+      ),
     },
     {
       path: '/',
@@ -41,6 +45,16 @@ export const Router: FC = () => {
         {
           path: '/app/settings',
           element: <SettingsPage />,
+          // children: [
+          //   {
+          //     path: 'notification',
+          //     element: <NotificationPage />,
+          //   },
+          // ]
+        },
+        {
+          path: '/notification',
+          element: <NotificationPage />,
         },
         {
           path: '/app/user-profile',
@@ -49,22 +63,42 @@ export const Router: FC = () => {
         {
           path: '/app/others-profile/:id',
           element: <OthersProfileBlock />,
-        }
-      ]
+        },
+      ],
     },
   ]);
 
   return routes;
-}
+};
 
-const DefaultLayout = Loadable(lazy(() => import("../layouts/DefaultLayout/DefaultLayout")));
-const ChatsPage = Loadable(lazy(() => import("../pages/ChatsPage/ChatsPage")));
-const ProfilePage = Loadable(lazy(() => import("../pages/ProfilePage/ProfilePage")));
-const SettingsPage = Loadable(lazy(() => import("../pages/SettingsPage/SettingsPage")));
-const FindModal = Loadable(lazy(() => import("../components/FindModal/FindModal")));
-const OthersProfileBlock = Loadable(lazy(() => import("../components/OtherProfileBlock/OthersProfileBlock")));
+const DefaultLayout = Loadable(
+  lazy(() => import('../layouts/DefaultLayout/DefaultLayout'))
+);
+const ChatsPage = Loadable(lazy(() => import('../pages/ChatsPage/ChatsPage')));
+const ProfilePage = Loadable(
+  lazy(() => import('../pages/ProfilePage/ProfilePage'))
+);
+const SettingsPage = Loadable(
+  lazy(() => import('../pages/SettingsPage/SettingsPage'))
+);
 
-const AuthLayout = Loadable(lazy(() => import("../layouts/AuthLayout/AuthLayout")));
-const LoginPage = Loadable(lazy(() => import("../pages/LoginPage/LoginPage")));
-const RegisterPage = Loadable(lazy(() => import("../pages/RegisterPage/RegisterPage")));
-const VerifyAccountPage = Loadable(lazy(() => import("../pages/VerifyAccountPage/VerifyAccountPage")));
+const FindModal = Loadable(
+  lazy(() => import('../components/FindModal/FindModal'))
+);
+const OthersProfileBlock = Loadable(
+  lazy(() => import('../components/OtherProfileBlock/OthersProfileBlock'))
+);
+
+const NotificationPage = Loadable(
+  lazy(() => import('../pages/NotificationPage/NotificationPage'))
+);
+const AuthLayout = Loadable(
+  lazy(() => import('../layouts/AuthLayout/AuthLayout'))
+);
+const LoginPage = Loadable(lazy(() => import('../pages/LoginPage/LoginPage')));
+const RegisterPage = Loadable(
+  lazy(() => import('../pages/RegisterPage/RegisterPage'))
+);
+const VerifyAccountPage = Loadable(
+  lazy(() => import('../pages/VerifyAccountPage/VerifyAccountPage'))
+);

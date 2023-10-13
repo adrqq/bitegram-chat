@@ -17,10 +17,7 @@ interface UserFindCardProps {
 }
 
 export const UserFindCard: FC<UserFindCardProps> = ({
-  user = {
-    nickname: 'User',
-    id: '1',
-  },
+  user,
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

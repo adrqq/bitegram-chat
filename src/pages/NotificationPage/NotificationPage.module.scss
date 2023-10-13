@@ -1,7 +1,25 @@
 @import '../../utils/mixins.module.scss';
 @import '../../utils/vars.module.scss';
 
-.chat {
+.notification_page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+
+    &__add {
+      width: 74px;
+      height: 30px;
+      font-size: 12px;
+      border-radius: 10px;
+      background-color: #32CD32;
+      align-self: center;
+    }
+  }
+
   &__container {
     width: 100%;
     height: 81px;
