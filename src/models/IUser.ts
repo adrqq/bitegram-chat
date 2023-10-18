@@ -4,4 +4,9 @@ export interface IUser {
   lastName: string;
   nickname: string;
   email: string;
+  isActivated: boolean;
+  bio: string;
+  profilePicture: string;
+  incomingFriendRequests: string[];
+  friends: string[];
 }

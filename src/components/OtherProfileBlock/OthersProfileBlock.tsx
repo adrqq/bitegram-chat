@@ -5,7 +5,10 @@ import { AuthInput } from '../../UI/AuthInput';
 
 import dinoUserLogo from '../../images/dino-user.jpg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { sendFriendRequestSocket } from '../../socketio/user-socket';
+import {
+  sendFriendRequestSocket,
+  acceptFriendRequestSocket,
+} from '../../socketio/user-socket';
 import socket from '../../socketio/user-socket';
 import { IFriendRequest } from '../../models/IFriendRequest';
 import {
@@ -14,7 +17,7 @@ import {
 } from '../../redux/slices/userSlice';
 import classNames from 'classnames';
 
-interface ProfileBlockProps {}
+interface ProfileBlockProps { }
 
 enum ProfileStatus {
   FRIEND = 'FRIEND',
@@ -39,6 +42,25 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
 
   console.log(`selectedUser`, selectedUser);
 
+  const setProfileStatusHandler = (status: string) => {
+    switch (status) {
+      case 'FRIEND':
+        setProfileStatus(ProfileStatus.FRIEND);
+        break;
+      case 'FRIEND_REQUEST_SENT':
+        setProfileStatus(ProfileStatus.FRIEND_REQUEST_SENT);
+        break;
+      case 'FRIEND_REQUEST_RECEIVED':
+        setProfileStatus(ProfileStatus.FRIEND_REQUEST_RECEIVED);
+        break;
+      case 'NOT_FRIEND':
+        setProfileStatus(ProfileStatus.NOT_FRIEND);
+        break;
+      default:
+        break;
+    }
+  }
+
   useEffect(() => {
     dispatch(
       checkFriendStatus({
@@ -47,23 +69,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
       })
     ).then((response) => {
       console.log(`response`, response.payload);
-
-      switch (response.payload) {
-        case 'FRIEND':
-          setProfileStatus(ProfileStatus.FRIEND);
-          break;
-        case 'FRIEND_REQUEST_SENT':
-          setProfileStatus(ProfileStatus.FRIEND_REQUEST_SENT);
-          break;
-        case 'FRIEND_REQUEST_RECEIVED':
-          setProfileStatus(ProfileStatus.FRIEND_REQUEST_RECEIVED);
-          break;
-        case 'NOT_FRIEND':
-          setProfileStatus(ProfileStatus.NOT_FRIEND);
-          break;
-        default:
-          break;
-      }
+      setProfileStatus(response.payload);
     });
   }, []);
 
@@ -71,8 +77,14 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     console.log('newFriendRequest', data);
 
     await dispatch(sendFriendRequest(data)).then(() => {
-      console.log('friend request sent');
+      setProfileStatusHandler(ProfileStatus.FRIEND_REQUEST_SENT);
     });
+  });
+
+  socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
+    console.log('friendRequestAccepted', data);
+
+    setProfileStatusHandler(ProfileStatus.FRIEND);
   });
 
   const handleAddFriend = () => {
@@ -82,6 +94,13 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
 
     sendFriendRequestSocket(user.id, selectedUser.id);
   };
+
+  const handleAcceptFriend = () => {
+    if (!user) return;
+
+    acceptFriendRequestSocket(user.id, selectedUser.id);
+  }
+
 
   if (!selectedUser) {
     return (
@@ -168,6 +187,16 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             </button>
           )}
 
+          {profileStatus === ProfileStatus.FRIEND && (
+            <button
+              type="button"
+              className={s.save_btn}
+              onClick={handleAddFriend}
+            >
+              <p className={s.save_btn__text}>Delete friend</p>
+            </button>
+          )}
+
           {profileStatus === ProfileStatus.FRIEND_REQUEST_SENT && (
             <button
               type="button"
@@ -187,7 +216,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             <button
               type="button"
               className={s.save_btn}
-              onClick={handleAddFriend}
+              onClick={handleAcceptFriend}
               style={{ backgroundColor: '#32CD32' }}
             >
               <p className={s.save_btn__text}>Accept</p>

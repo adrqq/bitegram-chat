@@ -50,7 +50,7 @@ export const getUserById = createAsyncThunk(
 
 export const sendFriendRequest = createAsyncThunk(
   'sendFriendRequest',
-  async (params: {userId: string, friendId: string}, { rejectWithValue }) => {
+  async (params: { userId: string, friendId: string }, { rejectWithValue }) => {
     try {
       console.log('sendFriendRequest params:', params); // Debugging
 

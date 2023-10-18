@@ -1,11 +1,10 @@
 @import '../../utils/mixins.module.scss';
 @import '../../utils/vars.module.scss';
 
-.requests_list {
-  display: flex;
-  flex-direction: column;
+.request_card {
   width: 100%;
   height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 

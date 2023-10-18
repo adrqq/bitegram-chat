@@ -11,7 +11,6 @@ interface UserFindCardProps {
   user: {
     nickname: string;
     id: string;
-    onClick?: () => void;
   };
   onClick?: () => void;
 }
@@ -27,7 +26,7 @@ export const UserFindCard: FC<UserFindCardProps> = ({
 
   const handleSelectUser = async () => {
     console.log(`${user.id} ${user.nickname} clicked`);
-  
+
     try {
       // Dispatch the action to fetch user data
       await dispatch(getUserById(user.id))
@@ -40,7 +39,7 @@ export const UserFindCard: FC<UserFindCardProps> = ({
       console.error(error);
     }
   };
-  
+
 
   return (
     <button className={s.chat__container} onClick={() => handleSelectUser()}>

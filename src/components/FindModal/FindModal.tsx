@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { SearchBar } from '../SearchBar';
 import { FriendsList } from '../FriendsList';
 import { ExploreList } from '../ExploreList';
+import RequestsList from '../RequestsList/RequestsList';
 
 interface FindModalProps { }
 
@@ -58,16 +59,16 @@ export const FindModal: FC<FindModalProps> = () => {
 
       <div className={s.modal__content}>
         {activeTab === Tabs.EXPLORE && (
-          <FriendsList />
+          <ExploreList />
         )}
 
         {activeTab === Tabs.FRIENDS && (
-          <ExploreList />
+          <FriendsList />
         )}
 
         {activeTab === Tabs.REQUEST && (
           <div className={s.requests}>
-
+            <RequestsList />
           </div>
         )}
       </div>
