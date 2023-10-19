@@ -7,8 +7,7 @@ interface ProfilePageProps { }
 
 export const ProfilePage: FC<ProfilePageProps> = () => (
   <>
-    {/* <ProfileBlock /> */}
-    <OthersProfileBlock />
+    <ProfileBlock />
   </>
 );
 

@@ -1,4 +1,10 @@
 import { BASE_URL } from "../http";
 import io from "socket.io-client";
 
-export const socket = io(BASE_URL);
+const socket = io(BASE_URL);
+
+socket.on('connect', () => {
+  console.log('connected with id:', socket.id);
+});
+
+export default socket;

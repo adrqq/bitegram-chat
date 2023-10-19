@@ -14,17 +14,17 @@ function App(): ReactElement {
     const checkAuthStatus = async () => {
       if (localStorage.getItem('token')) {
         console.log('check auth');
-  
+
         await dispatch(checkAuth()).then((res: any) => {
           if (typeof res === 'string') {
             navigate('/auth/verify', { replace: true });
 
             return;
           }
-  
-            if (res) {
-              navigate('/app/chats', { replace: true });
-            }
+
+          if (res) {
+            navigate('/app/chats', { replace: true });
+          }
         });
       }
     }

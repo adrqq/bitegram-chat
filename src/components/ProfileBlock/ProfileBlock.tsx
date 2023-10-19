@@ -2,15 +2,23 @@ import React, { FC, useState } from 'react';
 import s from './ProfileBlock.module.scss';
 import { GoBackButton } from '../../UI/GoBackButton';
 import { AuthInput } from '../../UI/AuthInput';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 interface ProfileBlockProps { }
 
 export const ProfileBlock: FC<ProfileBlockProps> = () => {
-  const [firstName, setName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [bio, setBio] = useState<string>('');
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.authSlice.user);
+
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
+
+  const [localUser, setLocalUser] = useState({
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    nickname: user.nickname || '',
+    bio: user.bio || '',
+    // userPhoto: null
+  });
 
   return (
     <div className={s.profile_block}>
@@ -49,8 +57,8 @@ export const ProfileBlock: FC<ProfileBlockProps> = () => {
               type='text'
               name='name'
               placeholder='First Name'
-              value={firstName}
-              onChange={(e) => setName(e.target.value)}
+              value={localUser.firstName}
+              onChange={(e) => setLocalUser({ ...localUser, firstName: e.target.value })}
             />
           </div>
 
@@ -60,8 +68,8 @@ export const ProfileBlock: FC<ProfileBlockProps> = () => {
               type='text'
               name='name'
               placeholder='Last Name'
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={localUser.lastName}
+              onChange={(e) => setLocalUser({ ...localUser, lastName: e.target.value })}
             />
           </div>
 
@@ -71,8 +79,8 @@ export const ProfileBlock: FC<ProfileBlockProps> = () => {
               type='text'
               name='name'
               placeholder='Username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={localUser.nickname}
+              onChange={(e) => setLocalUser({ ...localUser, nickname: e.target.value })}
               required
             />
           </div>
@@ -83,8 +91,8 @@ export const ProfileBlock: FC<ProfileBlockProps> = () => {
               type='text'
               name='name'
               placeholder='Bio'
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
+              value={localUser.bio}
+              onChange={(e) => setLocalUser({ ...localUser, bio: e.target.value })}
               isTextArea
             />
           </div>

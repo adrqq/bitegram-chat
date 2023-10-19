@@ -14,12 +14,6 @@ export const ExploreList: FC<ExploreListProps> = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([]);
 
-  // const handleSearch = (searchQ: string) => {
-  //   dispatch(searchUsers(searchQ)).then((res: any) => {
-  //     setUsers(res.payload);
-  //   });
-  // };
-
   const handleSearch = (searchQ: string) => {
     if (user.id) {
       dispatch(searchUsers({ searchQuery: searchQ, userId: user.id }))
@@ -28,7 +22,6 @@ export const ExploreList: FC<ExploreListProps> = () => {
           setUsers(res);
         })
         .catch((error) => {
-          // Handle the error, e.g., show an error message or log it
           console.error('Search error:', error);
         });
     }

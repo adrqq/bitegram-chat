@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   sendFriendRequestSocket,
   acceptFriendRequestSocket,
+  testSocket,
 } from '../../socketio/user-socket';
 import socket from '../../socketio/user-socket';
 import { IFriendRequest } from '../../models/IFriendRequest';
 import {
   checkFriendStatus,
-  sendFriendRequest,
 } from '../../redux/slices/userSlice';
 import classNames from 'classnames';
 
@@ -73,12 +73,10 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     });
   }, []);
 
-  socket.on('newFriendRequest', async (data: IFriendRequest) => {
-    console.log('newFriendRequest', data);
+  socket.on('friendRequestSent', async (data: IFriendRequest) => {
+    console.log('friendRequestSent', data);
 
-    await dispatch(sendFriendRequest(data)).then(() => {
-      setProfileStatusHandler(ProfileStatus.FRIEND_REQUEST_SENT);
-    });
+    setProfileStatusHandler(ProfileStatus.FRIEND_REQUEST_SENT);
   });
 
   socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
@@ -87,12 +85,17 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     setProfileStatusHandler(ProfileStatus.FRIEND);
   });
 
+  socket.on('testSocket', async () => {
+    console.log('testSocket!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  })
+
   const handleAddFriend = () => {
     if (!user) return;
 
-    console.log(`user`, user);
+    // console.log(`user`, user);
 
-    sendFriendRequestSocket(user.id, selectedUser.id);
+    // sendFriendRequestSocket(user.id, selectedUser.id);
+    testSocket();
   };
 
   const handleAcceptFriend = () => {

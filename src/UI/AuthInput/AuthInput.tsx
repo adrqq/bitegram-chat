@@ -26,7 +26,7 @@ export const AuthInput: FC<AuthInputProps> = ({
   type,
   name,
   placeholder,
-  value,
+  value = '',
   onChange = () => { },
   required = false,
   submitError = false,
@@ -48,7 +48,7 @@ export const AuthInput: FC<AuthInputProps> = ({
 
     console.log('render');
 
-    if (value.trim().length === 0 && required) {
+    if (value && value.trim().length === 0 && required) {
       setErrorMessage('This field is required');
 
       setSubmitError(true);

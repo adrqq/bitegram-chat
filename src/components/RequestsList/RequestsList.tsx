@@ -7,6 +7,8 @@ import dummyAvatar from '../../images/avatar.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { RequestCard } from '../RequestCard';
 import { IUser } from '../../models/IUser';
+import socket from '../../socketio/user-socket';
+import { IFriendRequest } from '../../models/IFriendRequest';
 
 interface RequestsListProps { }
 
@@ -18,9 +20,9 @@ const RequestsList: FC<RequestsListProps> = () => {
 
   const [requestors, setRequestors] = React.useState<IUser[]>([]);
 
-  useEffect(() => {
-    const fetchRequestors = async () => {
-      try {
+  const fetchRequestors = async () => {
+    try {
+      if (user.incomingFriendRequests) {
         const requestorsData = await Promise.all(
           user.incomingFriendRequests.map(async (requestorId: string) => {
             const requestor = await dispatch(getUserById(requestorId));
@@ -29,13 +31,21 @@ const RequestsList: FC<RequestsListProps> = () => {
         );
 
         setRequestors(requestorsData);
-      } catch (error) {
-        console.error(error);
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchRequestors();
   }, []);
+
+  socket.on('newFriendRequest', async (data: IFriendRequest) => {
+    console.log('newFriendRequest', data);
+
+    fetchRequestors();
+  });
 
   return (
     <div className={s.requests_list}>
