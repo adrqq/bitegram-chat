@@ -85,8 +85,10 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     setProfileStatusHandler(ProfileStatus.FRIEND);
   });
 
-  socket.on('testSocket', async () => {
-    console.log('testSocket!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+  useEffect(() => {
+    socket.on('testSocket', async () => {
+      alert('testSocket');
+    });
   })
 
   const handleAddFriend = () => {
