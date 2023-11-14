@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   sendFriendRequestSocket,
   acceptFriendRequestSocket,
-  testSocket,
 } from '../../socketio/user-socket';
 import socket from '../../socketio/user-socket';
 import { IFriendRequest } from '../../models/IFriendRequest';
@@ -39,6 +38,8 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const [profileStatus, setProfileStatus] = useState<string>(
     ProfileStatus.NOT_FRIEND
   );
+
+  const [randomValue, setRandomValue] = useState('');
 
   console.log(`selectedUser`, selectedUser);
 
@@ -73,39 +74,38 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     });
   }, []);
 
-  socket.on('friendRequestSent', async (data: IFriendRequest) => {
-    console.log('friendRequestSent', data);
+  // socket.on('friendRequestSent', async (data: IFriendRequest) => {
+  //   console.log('friendRequestSent', data);
 
-    setProfileStatusHandler(ProfileStatus.FRIEND_REQUEST_SENT);
-  });
+  //   setProfileStatusHandler(ProfileStatus.FRIEND_REQUEST_SENT);
+  // });
 
-  socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
-    console.log('friendRequestAccepted', data);
+  // socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
+  //   console.log('friendRequestAccepted', data);
 
-    setProfileStatusHandler(ProfileStatus.FRIEND);
-  });
+  //   setProfileStatusHandler(ProfileStatus.FRIEND);
+  // });
 
-  useEffect(() => {
-    socket.on('testSocket', async () => {
-      alert('testSocket');
-    });
-  })
+  // const handleAddFriend = () => {
+  //   if (!user) return;
 
-  const handleAddFriend = () => {
-    if (!user) return;
+  //   sendFriendRequestSocket(user.id, selectedUser.id);
+  // };
 
-    // console.log(`user`, user);
+  // const handleAcceptFriend = () => {
+  //   if (!user) return;
 
-    // sendFriendRequestSocket(user.id, selectedUser.id);
-    testSocket();
+  //   acceptFriendRequestSocket(user.id, selectedUser.id);
+  // }
+
+    const handleAddFriend = () => {
+        if (!user || !selectedUser.id) {
+
+          alert('You are not logged in');
+        };
+
+    sendFriendRequestSocket(user.id, selectedUser.id)
   };
-
-  const handleAcceptFriend = () => {
-    if (!user) return;
-
-    acceptFriendRequestSocket(user.id, selectedUser.id);
-  }
-
 
   if (!selectedUser) {
     return (
@@ -221,7 +221,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             <button
               type="button"
               className={s.save_btn}
-              onClick={handleAcceptFriend}
+              // onClick={handleAcceptFriend}
               style={{ backgroundColor: '#32CD32' }}
             >
               <p className={s.save_btn__text}>Accept</p>

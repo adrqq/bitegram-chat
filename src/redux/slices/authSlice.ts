@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../models/IUser";
 import AuthService from "../../services/AuthService";
+import { connectSocket } from "../../socketio";
 
 
 interface AuthState {
@@ -37,6 +38,8 @@ export const login = createAsyncThunk(
       if (response.status === 200) {
         localStorage.setItem("token", response.data.accessToken);
       }
+
+      console.log("response", response.data.user.id);
 
       return response.data.user;
     } catch (e: any) {

@@ -17,6 +17,7 @@ const RequestsList: FC<RequestsListProps> = () => {
   const selected = false;
 
   const { user } = useAppSelector((state) => state.authSlice);
+  const { callFetchRequestors } = useAppSelector((state) => state.userSlice);
 
   const [requestors, setRequestors] = React.useState<IUser[]>([]);
 
@@ -39,13 +40,13 @@ const RequestsList: FC<RequestsListProps> = () => {
 
   useEffect(() => {
     fetchRequestors();
-  }, []);
+  }, [callFetchRequestors]);
 
-  socket.on('newFriendRequest', async (data: IFriendRequest) => {
-    console.log('newFriendRequest', data);
+  // socket.on('newFriendRequest', async (data: IFriendRequest) => {
+  //   console.log('newFriendRequest', data);
 
-    fetchRequestors();
-  });
+  //   fetchRequestors();
+  // });
 
   return (
     <div className={s.requests_list}>

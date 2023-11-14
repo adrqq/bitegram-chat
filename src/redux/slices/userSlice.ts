@@ -1,13 +1,15 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../models/IUser";
-import UserService from "../../services/UserService";
-import { IFriend } from "../../models/IFriend";
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IUser } from '../../models/IUser';
+import UserService from '../../services/UserService';
+import { IFriend } from '../../models/IFriend';
+import socket from '../../socketio';
 
 interface UserState {
   selectedUser: IUser;
   friendRequestSent: IFriend[];
   friendRequestReceived: IFriend[];
   ProfileUserStatus: string;
+  callFetchRequestors: boolean;
 }
 
 const initialState: UserState = {
@@ -15,15 +17,22 @@ const initialState: UserState = {
   friendRequestSent: [],
   friendRequestReceived: [],
   ProfileUserStatus: '',
+  callFetchRequestors: false,
 };
 
 export const searchUsers = createAsyncThunk(
-  "searchUsers",
-  async (payload: { searchQuery: string, userId: string }, { rejectWithValue }) => {
+  'searchUsers',
+  async (
+    payload: { searchQuery: string; userId: string },
+    { rejectWithValue }
+  ) => {
     try {
       console.log('searchQuery', payload.searchQuery); // Debugging
 
-      const response = await UserService.searchUsers(payload.searchQuery, payload.userId);
+      const response = await UserService.searchUsers(
+        payload.searchQuery,
+        payload.userId
+      );
 
       return response.data;
     } catch (e: any) {
@@ -31,7 +40,6 @@ export const searchUsers = createAsyncThunk(
     }
   }
 );
-
 
 export const getUserById = createAsyncThunk(
   'getUserById',
@@ -50,11 +58,14 @@ export const getUserById = createAsyncThunk(
 
 export const sendFriendRequest = createAsyncThunk(
   'sendFriendRequest',
-  async (params: { userId: string, friendId: string }, { rejectWithValue }) => {
+  async (params: { userId: string; friendId: string }, { rejectWithValue }) => {
     try {
       console.log('sendFriendRequest params:', params); // Debugging
 
-      const response = await UserService.sendFriendRequest(params.userId, params.friendId);
+      const response = await UserService.sendFriendRequest(
+        params.userId,
+        params.friendId
+      );
       console.log('sendFriendRequest response:', response); // Debugging
 
       return response.data;
@@ -67,9 +78,12 @@ export const sendFriendRequest = createAsyncThunk(
 
 export const checkFriendStatus = createAsyncThunk(
   'checkFriendStatus',
-  async (params: { userId: string, friendId: string }, { rejectWithValue }) => {
+  async (params: { userId: string; friendId: string }, { rejectWithValue }) => {
     try {
-      const response = await UserService.checkFriendStatus(params.userId, params.friendId);
+      const response = await UserService.checkFriendStatus(
+        params.userId,
+        params.friendId
+      );
       console.log('checkFriendStatus response:', response); // Debugging
 
       return response.data;
@@ -80,34 +94,36 @@ export const checkFriendStatus = createAsyncThunk(
   }
 );
 
-
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setSelectedUser: (state, action: PayloadAction<IUser>) => {
       state.selectedUser = action.payload;
-    }
+    },
+    setCallFetchRequestors: (state) => {
+      state.callFetchRequestors = !state.callFetchRequestors;
+    },
   },
   extraReducers: {
     [searchUsers.fulfilled.type]: (state, action: PayloadAction<any>) => {
-      console.log("action", action);
+      console.log('action', action);
     },
     [getUserById.fulfilled.type]: (state, action: PayloadAction<any>) => {
       state.selectedUser = action.payload; // Ensure this is updating correctly
     },
     [sendFriendRequest.fulfilled.type]: (state, action: PayloadAction<any>) => {
-      console.log("action", action);
+      console.log('action', action);
       state.friendRequestSent.push(action.payload);
     },
 
     [checkFriendStatus.fulfilled.type]: (state, action: PayloadAction<any>) => {
-      console.log("checkFriendStatus action", action);
+      console.log('checkFriendStatus action', action);
       state.ProfileUserStatus = action.payload;
     },
   },
 });
 
-export const { setSelectedUser } = userSlice.actions;
+export const { setSelectedUser, setCallFetchRequestors } = userSlice.actions;
 
 export default userSlice.reducer;

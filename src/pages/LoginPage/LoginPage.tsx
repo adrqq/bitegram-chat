@@ -7,6 +7,7 @@ import googleAuthIcon from '../../images/google-auth-icon.svg';
 import githubAuthIcon from '../../images/github-auth-icon.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { checkAuth, login } from '../../redux/slices/authSlice';
+import { connectSocket } from "../../socketio";
 
 interface LoginPageProps { }
 
@@ -45,6 +46,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
 
       if (res.payload) {
         console.log("user is activated and logged in");
+
         navigate("/app/chats", { replace: true });
       }
     });

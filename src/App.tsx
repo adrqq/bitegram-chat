@@ -2,13 +2,16 @@ import { BASE_URL } from "./http";
 import { ReactElement, useEffect } from "react";
 import { Router } from "./routes";
 import "./App.module.scss";
-import { useAppDispatch } from "./hooks/redux";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { checkAuth } from "./redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { connectSocket } from "./socketio";
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { user } = useAppSelector((state) => state.authSlice);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -23,6 +26,9 @@ function App(): ReactElement {
           }
 
           if (res) {
+            console.log('ID', res.payload.id);
+            connectSocket(res.payload.id);
+
             navigate('/app/chats', { replace: true });
           }
         });
@@ -32,6 +38,11 @@ function App(): ReactElement {
     checkAuthStatus();
   }, []);
 
+  useEffect(() => {
+    connectSocket(user.id); 
+    console.log(user.id, 'connectSocket');
+  }, [user.id]);
+
   return (
     <>
       <Router />
@@ -40,3 +51,4 @@ function App(): ReactElement {
 }
 
 export default App;
+  
