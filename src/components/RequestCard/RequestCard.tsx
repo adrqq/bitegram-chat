@@ -30,10 +30,6 @@ export const RequestCard: FC<RequestCardProps> = ({
     acceptFriendRequestSocket(user.id, friendUser.id);
   }
 
-  socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
-    console.log('friendRequestAccepted', data);
-  });
-
   return (
     <div
       className={classNames(

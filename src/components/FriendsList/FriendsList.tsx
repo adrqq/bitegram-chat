@@ -34,7 +34,7 @@ export const FriendsList: FC<FriendsListProps> = () => {
     };
 
     fetchFriends();
-  }, []);
+  }, [user]);
 
   const searchInFriends = (searchQ: string) => {
     setSearchQuery(searchQ);

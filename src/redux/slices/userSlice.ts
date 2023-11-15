@@ -3,20 +3,20 @@ import { IUser } from '../../models/IUser';
 import UserService from '../../services/UserService';
 import { IFriend } from '../../models/IFriend';
 import socket from '../../socketio';
+import { ISelectedUser } from '../../models/ISelectedUser';
+import { ProfileStatus } from '../../types/ProfileStatus';
 
 interface UserState {
-  selectedUser: IUser;
+  selectedUser: ISelectedUser;
   friendRequestSent: IFriend[];
   friendRequestReceived: IFriend[];
-  ProfileUserStatus: string;
   callFetchRequestors: boolean;
 }
 
 const initialState: UserState = {
-  selectedUser: {} as IUser,
+  selectedUser: {} as ISelectedUser,
   friendRequestSent: [],
   friendRequestReceived: [],
-  ProfileUserStatus: '',
   callFetchRequestors: false,
 };
 
@@ -98,12 +98,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setSelectedUser: (state, action: PayloadAction<IUser>) => {
+    setSelectedUser: (state, action: PayloadAction<ISelectedUser>) => {
       state.selectedUser = action.payload;
     },
     setCallFetchRequestors: (state) => {
       state.callFetchRequestors = !state.callFetchRequestors;
     },
+    setSelectedUserStatus: (state, action: PayloadAction<ProfileStatus>) => {
+      state.selectedUser.status = action.payload;
+    }
   },
   extraReducers: {
     [searchUsers.fulfilled.type]: (state, action: PayloadAction<any>) => {
@@ -119,11 +122,15 @@ export const userSlice = createSlice({
 
     [checkFriendStatus.fulfilled.type]: (state, action: PayloadAction<any>) => {
       console.log('checkFriendStatus action', action);
-      state.ProfileUserStatus = action.payload;
+      state.selectedUser.status = action.payload.status;
     },
   },
 });
 
-export const { setSelectedUser, setCallFetchRequestors } = userSlice.actions;
+export const {
+  setSelectedUser,
+  setCallFetchRequestors,
+  setSelectedUserStatus
+} = userSlice.actions;
 
 export default userSlice.reducer;

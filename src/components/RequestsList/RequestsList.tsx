@@ -40,13 +40,7 @@ const RequestsList: FC<RequestsListProps> = () => {
 
   useEffect(() => {
     fetchRequestors();
-  }, [callFetchRequestors]);
-
-  // socket.on('newFriendRequest', async (data: IFriendRequest) => {
-  //   console.log('newFriendRequest', data);
-
-  //   fetchRequestors();
-  // });
+  }, [user]);
 
   return (
     <div className={s.requests_list}>

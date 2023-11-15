@@ -56,7 +56,7 @@ export const register = createAsyncThunk(
       password: string;
       firstName: string;
       lastName: string;
-      nickname:string;
+      nickname: string;
     },
     { rejectWithValue }
   ) => {
@@ -129,9 +129,13 @@ export const logout = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    }
+  },
   extraReducers: {
-    [login.fulfilled.type]: (state, action:PayloadAction<IUser>) => {
+    [login.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
       state.activationEmail = action.payload.email;
       state.isUserAuth = true;
       state.user = action.payload;
@@ -147,7 +151,7 @@ export const authSlice = createSlice({
       state.isLoginError = false;
     },
 
-    [register.fulfilled.type]: (state, action:PayloadAction<IUser>) => {
+    [register.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
       state.activationEmail = action.payload.email;
       state.isRegisterLoading = false;
       state.isRegisterError = false;
@@ -161,7 +165,7 @@ export const authSlice = createSlice({
       state.isRegisterError = false;
     },
 
-    [checkAuth.fulfilled.type]: (state, action:PayloadAction<IUser>) => {
+    [checkAuth.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
       state.isUserAuth = true;
       state.user = action.payload;
       console.log("checkAuth", action.payload);
@@ -185,6 +189,8 @@ export const authSlice = createSlice({
 
 });
 
-export const {} = authSlice.actions;
+export const {
+  setUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;
