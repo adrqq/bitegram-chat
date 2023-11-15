@@ -2,22 +2,18 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../models/IUser';
 import UserService from '../../services/UserService';
 import { IFriend } from '../../models/IFriend';
-import socket from '../../socketio';
 import { ISelectedUser } from '../../models/ISelectedUser';
-import { ProfileStatus } from '../../types/ProfileStatus';
 
 interface UserState {
-  selectedUser: ISelectedUser;
+  selectedUser: IUser;
   friendRequestSent: IFriend[];
   friendRequestReceived: IFriend[];
-  callFetchRequestors: boolean;
 }
 
 const initialState: UserState = {
-  selectedUser: {} as ISelectedUser,
+  selectedUser: {} as IUser,
   friendRequestSent: [],
   friendRequestReceived: [],
-  callFetchRequestors: false,
 };
 
 export const searchUsers = createAsyncThunk(
@@ -98,39 +94,23 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setSelectedUser: (state, action: PayloadAction<ISelectedUser>) => {
+    setSelectedUser: (state, action: PayloadAction<IUser>) => {
       state.selectedUser = action.payload;
     },
-    setCallFetchRequestors: (state) => {
-      state.callFetchRequestors = !state.callFetchRequestors;
-    },
-    setSelectedUserStatus: (state, action: PayloadAction<ProfileStatus>) => {
-      state.selectedUser.status = action.payload;
-    }
   },
   extraReducers: {
     [searchUsers.fulfilled.type]: (state, action: PayloadAction<any>) => {
       console.log('action', action);
     },
-    [getUserById.fulfilled.type]: (state, action: PayloadAction<any>) => {
-      state.selectedUser = action.payload; // Ensure this is updating correctly
-    },
     [sendFriendRequest.fulfilled.type]: (state, action: PayloadAction<any>) => {
       console.log('action', action);
       state.friendRequestSent.push(action.payload);
-    },
-
-    [checkFriendStatus.fulfilled.type]: (state, action: PayloadAction<any>) => {
-      console.log('checkFriendStatus action', action);
-      state.selectedUser.status = action.payload.status;
     },
   },
 });
 
 export const {
   setSelectedUser,
-  setCallFetchRequestors,
-  setSelectedUserStatus
 } = userSlice.actions;
 
 export default userSlice.reducer;

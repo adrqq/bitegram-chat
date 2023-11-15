@@ -18,7 +18,7 @@ export const FriendsList: FC<FriendsListProps> = () => {
   useEffect(() => {
     const fetchFriends = async () => {
       try {
-        if (user.friends) {
+        if (user?.friends) {
           const friendsData = await Promise.all(
             user.friends.map(async (friendId: string) => {
               const friends = await dispatch(getUserById(friendId));

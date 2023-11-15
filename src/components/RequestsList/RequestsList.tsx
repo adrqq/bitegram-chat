@@ -17,7 +17,6 @@ const RequestsList: FC<RequestsListProps> = () => {
   const selected = false;
 
   const { user } = useAppSelector((state) => state.authSlice);
-  const { callFetchRequestors } = useAppSelector((state) => state.userSlice);
 
   const [requestors, setRequestors] = React.useState<IUser[]>([]);
 

@@ -46,8 +46,6 @@ export const AuthInput: FC<AuthInputProps> = ({
       return;
     }
 
-    console.log('render');
-
     if (value && value.trim().length === 0 && required) {
       setErrorMessage('This field is required');
 

@@ -5,7 +5,8 @@ import "./App.module.scss";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { checkAuth } from "./redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { connectSocket } from "./socketio";
+import { connectSocket, disconnectSocket } from "./socketio";
+import { disconnect } from "process";
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
@@ -27,6 +28,8 @@ function App(): ReactElement {
 
           if (res) {
             console.log('ID', res.payload.id);
+            disconnectSocket();
+
             connectSocket(res.payload.id);
 
             navigate('/app/chats', { replace: true });
@@ -39,7 +42,7 @@ function App(): ReactElement {
   }, []);
 
   useEffect(() => {
-    connectSocket(user.id); 
+    connectSocket(user.id);
     console.log(user.id, 'connectSocket');
   }, [user.id]);
 
@@ -51,4 +54,3 @@ function App(): ReactElement {
 }
 
 export default App;
-  

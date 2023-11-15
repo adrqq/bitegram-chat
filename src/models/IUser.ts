@@ -8,5 +8,6 @@ export interface IUser {
   bio: string;
   profilePicture: string;
   incomingFriendRequests: string[];
+  outgoingFriendRequests: string[];
   friends: string[];
 }

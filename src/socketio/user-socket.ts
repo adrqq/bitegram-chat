@@ -3,8 +3,6 @@ import socket from ".";
 import { IFriendRequest } from '../models/IFriendRequest';
 import {
   getUserById,
-  setCallFetchRequestors,
-  setSelectedUserStatus
 } from '../redux/slices/userSlice';
 import { ProfileStatus } from '../types/ProfileStatus';
 import { setUser } from '../redux/slices/authSlice';
@@ -30,39 +28,40 @@ export function acceptFriendRequestSocket(userId: string, friendId: string) {
   });
 }
 
-export const setupUserSocket = async (dispatch: any) => {
+export const setupUserSocket = async (dispatch: any, getState: any) => {
+  const updateUser = async () => {
+    const user = await getState().authSlice.user;
+
+    if (user.id) {
+      dispatch(getUserById(user.id))
+        .then((response: any) => {
+          dispatch(setUser(response.payload));
+        });
+    }
+  }
+
   socket.on('newFriendRequest', async (data: IFriendRequest) => {
-    alert(`newFriendRequest ${data}`);
+    alert(`newFriendRequest ${JSON.stringify(data)}`);
 
-    dispatch(getUserById(data.friendId))
-      .then((response: any) => {
-        dispatch(setUser(response.payload));
-      });
-
-    dispatch(setSelectedUserStatus(ProfileStatus.FRIEND_REQUEST_RECEIVED));
+    await updateUser();
   });
 
   socket.on('friendRequestSent', async (data: IFriendRequest) => {
-    alert(`friendRequestSent ${data}`);
+    alert(`friendRequestSent ${JSON.stringify(data)}`);
 
-    dispatch(setSelectedUserStatus(ProfileStatus.FRIEND_REQUEST_SENT));
+    await updateUser();
   });
 
   socket.on('friendRequestAccepted', async (data: IFriendRequest) => {
-    alert(`friendRequestAccepted ${data}`);
+    alert(`friendRequestAccepted ${JSON.stringify(data)}`);
 
-    dispatch(getUserById(data.friendId))
-      .then((response: any) => {
-        dispatch(setUser(response.payload));
-      });
-
-    dispatch(setSelectedUserStatus(ProfileStatus.FRIEND));
+    await updateUser();
   });
 
   socket.on('friendDeleted', async (data: IFriendRequest) => {
-    alert(`friendDeleted ${data}`);
+    alert(`friendDeleted ${JSON.stringify(data)}`);
 
-    dispatch(setSelectedUserStatus(ProfileStatus.NOT_FRIEND));
+    await updateUser();
   });
 };
 

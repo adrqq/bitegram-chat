@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import dummyAvatar from '../../images/avatar.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getUserById } from '../../redux/slices/userSlice';
+import { getUserById, setSelectedUser } from '../../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 interface UserFindCardProps {
@@ -30,8 +30,10 @@ export const UserFindCard: FC<UserFindCardProps> = ({
     try {
       // Dispatch the action to fetch user data
       await dispatch(getUserById(user.id))
-        .then((res: any) => {
-          console.log('selected user', selectedUser); // Debugging
+        .then(async (res: any) => {
+          console.log('selected user', selectedUser);
+
+          dispatch(setSelectedUser(res.payload));
 
           navigate(`/app/others-profile/${user.id}`);
         });

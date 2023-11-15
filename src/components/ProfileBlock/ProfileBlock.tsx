@@ -1,13 +1,13 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import s from './ProfileBlock.module.scss';
 import { GoBackButton } from '../../UI/GoBackButton';
 import { AuthInput } from '../../UI/AuthInput';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 
 interface ProfileBlockProps { }
 
 export const ProfileBlock: FC<ProfileBlockProps> = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.authSlice.user);
 
   const [userPhoto, setUserPhoto] = useState<string | null>(null);

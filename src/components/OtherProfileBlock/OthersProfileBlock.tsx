@@ -10,18 +10,18 @@ import {
   acceptFriendRequestSocket,
   deleteFriendSocket,
 } from '../../socketio/user-socket';
-import socket from '../../socketio/user-socket';
-import { IFriendRequest } from '../../models/IFriendRequest';
 import {
-  checkFriendStatus, setSelectedUserStatus,
+  getUserById, setSelectedUser,
 } from '../../redux/slices/userSlice';
 import classNames from 'classnames';
 import { ProfileStatus } from '../../types/ProfileStatus';
+import { useParams } from 'react-router-dom';
 
 interface ProfileBlockProps { }
 
 export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const dispatch = useAppDispatch();
+  const { userId: userIdParam } = useParams<{ userId: string }>();
 
   const { selectedUser } = useAppSelector(
     (state) => state.userSlice
@@ -30,46 +30,61 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
 
   const [bio, setBio] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
+  const [profileStatus, setProfileStatus] = useState<ProfileStatus>(ProfileStatus.NOT_FRIEND);
 
   console.log(`selectedUser`, selectedUser);
 
   useEffect(() => {
-    dispatch(
-      checkFriendStatus({
-        userId: user.id,
-        friendId: selectedUser.id,
-      })
-    ).then((response) => {
-      console.log(`response`, response.payload);
+    if (!selectedUser) return;
 
-      dispatch(
-        setSelectedUserStatus(response.payload)
-      );
-    });
-  }, []);
+    if (userIdParam) {
+      dispatch(getUserById(userIdParam))
+        .then((res) => {
+          setSelectedUser(res.payload);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [selectedUser]);
 
   const handleAcceptFriend = () => {
-    // if (!user) return;
+    if (!user || !selectedUser.id) {
+      alert('You are not logged in');
+    };
 
     acceptFriendRequestSocket(user.id, selectedUser.id);
   }
 
   const handleAddFriend = () => {
-    // if (!user || !selectedUser.id) {
-
-    //   alert('You are not logged in');
-    // };
+    if (!user || !selectedUser.id) {
+      alert('You are not logged in');
+    };
 
     sendFriendRequestSocket(user.id, selectedUser.id);
   };
 
   const handleDeleteFriend = () => {
-    // if (!user || !selectedUser.id) {
-    //   alert('You are not logged in');
-    // };
+    if (!user || !selectedUser.id) {
+      alert('You are not logged in');
+    };
 
     deleteFriendSocket(user.id, selectedUser.id)
-  }
+  };
+
+  useEffect(() => {
+    if (!selectedUser) return;
+    if (!user) return;
+
+    if (user.friends.includes(selectedUser.id)) {
+      setProfileStatus(ProfileStatus.FRIEND);
+    } else if (user.outgoingFriendRequests.includes(selectedUser.id)) {
+      setProfileStatus(ProfileStatus.FRIEND_REQUEST_SENT);
+    } else if (user.incomingFriendRequests.includes(selectedUser.id)) {
+      setProfileStatus(ProfileStatus.FRIEND_REQUEST_RECEIVED);
+    } else {
+      setProfileStatus(ProfileStatus.NOT_FRIEND);
+    }
+
+  }, [user, selectedUser]);
 
   if (!selectedUser) {
     return (
@@ -146,7 +161,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             />
           </div>
 
-          {selectedUser.status === ProfileStatus.NOT_FRIEND && (
+          {profileStatus === ProfileStatus.NOT_FRIEND && (
             <button
               type="button"
               className={s.save_btn}
@@ -156,7 +171,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             </button>
           )}
 
-          {selectedUser.status === ProfileStatus.FRIEND && (
+          {profileStatus === ProfileStatus.FRIEND && (
             <button
               type="button"
               className={s.save_btn}
@@ -166,7 +181,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             </button>
           )}
 
-          {selectedUser.status === ProfileStatus.FRIEND_REQUEST_SENT && (
+          {profileStatus === ProfileStatus.FRIEND_REQUEST_SENT && (
             <button
               type="button"
               className={classNames(
@@ -181,7 +196,7 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             </button>
           )}
 
-          {selectedUser.status === ProfileStatus.FRIEND_REQUEST_RECEIVED && (
+          {profileStatus === ProfileStatus.FRIEND_REQUEST_RECEIVED && (
             <button
               type="button"
               className={s.save_btn}

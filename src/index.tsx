@@ -14,7 +14,7 @@ import { setupUserSocket } from './socketio/user-socket';
 
 const store = setupStore();
 
-setupUserSocket(store.dispatch);
+setupUserSocket(store.dispatch, store.getState);
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,10 +22,10 @@ const root = createRoot(
 
 root.render(
   <>
-  <Provider store={store}>
+    <Provider store={store}>
       <Router>
         <App />
       </Router>
-  </Provider>
+    </Provider>
   </>
 );
