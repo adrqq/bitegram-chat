@@ -10,4 +10,6 @@ export interface IUser {
   incomingFriendRequests: string[];
   outgoingFriendRequests: string[];
   friends: string[];
+  chats: string[];
+  groups: string[];
 }

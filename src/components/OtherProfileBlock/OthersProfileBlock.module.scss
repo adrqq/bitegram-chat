@@ -85,12 +85,23 @@
   }
 }
 
+.btns__wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
 .save_btn {
   width: 80px;
   height: 48px;
   background-color: $default-light-blue;
   border-radius: 10px;
-  margin-left: auto;
+  // margin-left: auto;
+
+  &__sand_massage {
+    width: 140px;
+    background-color: #32CD32;
+  }
 
   &__sent_request {
     background-color: gray;

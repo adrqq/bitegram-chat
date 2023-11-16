@@ -3,18 +3,84 @@ import { IUser } from '../../models/IUser';
 import UserService from '../../services/UserService';
 import { IFriend } from '../../models/IFriend';
 import { ISelectedUser } from '../../models/ISelectedUser';
+import { IChat } from '../../models/IChat';
+import { ISelectedChat } from '../../models/ISelectedChat';
 
 interface UserState {
   selectedUser: IUser;
   friendRequestSent: IFriend[];
   friendRequestReceived: IFriend[];
+  chats: IChat[];
+  selectedChat: ISelectedChat;
 }
 
 const initialState: UserState = {
   selectedUser: {} as IUser,
   friendRequestSent: [],
   friendRequestReceived: [],
+  chats: [] as IChat[],
+  selectedChat: {} as ISelectedChat,
 };
+
+// export const getChatsInfoList = createAsyncThunk(
+//   'getChatsInfoList',
+//   async (chatId: string, { rejectWithValue }) => {
+//     try {
+//       const response = await UserService.getChatsInfoList(chatId);
+//       console.log('getChatsInfoList response:', response); // Debugging
+
+//       return response.data;
+//     } catch (error) {
+//       console.error('getChatsInfoList error:', error); // Debugging
+//       return rejectWithValue(false);
+//     }
+//   }
+// )
+
+export const getChatById = createAsyncThunk(
+  'getSelectedChatInfo',
+  async (chatId: string, { rejectWithValue }) => {
+    try {
+      if (!chatId) {
+        return rejectWithValue(false);
+      }
+
+      const response = await UserService.getChatById(chatId);
+
+      return response.data;
+    } catch (error) {
+      console.error('getSelectedChatInfo error:', error); // Debugging
+      return rejectWithValue(false);
+    }
+  }
+)
+
+export const createChat = createAsyncThunk(
+  'createChat',
+  async (
+    params: { userId: string; friendId: string },
+    { rejectWithValue, getState }
+  ) => {
+    try {
+
+      const user: IUser = (getState() as any).authSlice.user;
+
+      if (!user.friends.includes(params.friendId)) {
+        alert('You are not friends with this user!');
+      }
+
+      const response = await UserService.createChat(
+        params.userId,
+        params.friendId
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error('createChat error:', error); // Debugging
+      return rejectWithValue(false);
+    }
+  }
+);
 
 export const searchUsers = createAsyncThunk(
   'searchUsers',
@@ -23,8 +89,6 @@ export const searchUsers = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log('searchQuery', payload.searchQuery); // Debugging
-
       const response = await UserService.searchUsers(
         payload.searchQuery,
         payload.userId
@@ -42,7 +106,6 @@ export const getUserById = createAsyncThunk(
   async (userId: string, { rejectWithValue }) => {
     try {
       const response = await UserService.getUserById(userId);
-      console.log('getUserById response:', response); // Debugging
 
       return response.data;
     } catch (error) {
@@ -56,13 +119,10 @@ export const sendFriendRequest = createAsyncThunk(
   'sendFriendRequest',
   async (params: { userId: string; friendId: string }, { rejectWithValue }) => {
     try {
-      console.log('sendFriendRequest params:', params); // Debugging
-
       const response = await UserService.sendFriendRequest(
         params.userId,
         params.friendId
       );
-      console.log('sendFriendRequest response:', response); // Debugging
 
       return response.data;
     } catch (error) {
@@ -80,7 +140,6 @@ export const checkFriendStatus = createAsyncThunk(
         params.userId,
         params.friendId
       );
-      console.log('checkFriendStatus response:', response); // Debugging
 
       return response.data;
     } catch (error) {
@@ -106,11 +165,12 @@ export const userSlice = createSlice({
       console.log('action', action);
       state.friendRequestSent.push(action.payload);
     },
+    [createChat.fulfilled.type]: (state, action: PayloadAction<any>) => {
+      console.log('action', action);
+    },
   },
 });
 
-export const {
-  setSelectedUser,
-} = userSlice.actions;
+export const { setSelectedUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -17,6 +17,8 @@ interface Props { }
 export const SelectorBlock: FC<Props> = () => {
   const dispatch = useAppDispatch();
 
+
+  
   return (
     <>
       <div className={s.selector_block}>
@@ -58,26 +60,20 @@ export const SelectorBlock: FC<Props> = () => {
           <div className={s.selector_block__border} />
         </div>
 
-        <div className={s.selector_block__pinned}>
+        {/* <div className={s.selector_block__pinned}>
           <h2 className={s.selector_block__subtitle}>Pinned</h2>
         </div>
 
         <ul className={s.chats_list}>
           <ChatItem />
           <ChatItem />
-        </ul>
+        </ul> */}
 
         <div className={s.selector_block__all}>
           <h2 className={s.selector_block__subtitle}>All Chats</h2>
         </div>
 
         <ul className={s.chats_list}>
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
-          <ChatItem />
           <ChatItem />
         </ul>
       </div>

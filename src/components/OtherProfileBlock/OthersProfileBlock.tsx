@@ -11,26 +11,28 @@ import {
   deleteFriendSocket,
 } from '../../socketio/user-socket';
 import {
-  getUserById, setSelectedUser,
+  createChat,
+  getUserById,
+  setSelectedUser,
 } from '../../redux/slices/userSlice';
 import classNames from 'classnames';
 import { ProfileStatus } from '../../types/ProfileStatus';
 import { useParams } from 'react-router-dom';
 
-interface ProfileBlockProps { }
+interface ProfileBlockProps {}
 
 export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const dispatch = useAppDispatch();
   const { userId: userIdParam } = useParams<{ userId: string }>();
 
-  const { selectedUser } = useAppSelector(
-    (state) => state.userSlice
-  );
+  const { selectedUser } = useAppSelector((state) => state.userSlice);
   const { user } = useAppSelector((state) => state.authSlice);
 
   const [bio, setBio] = useState<string>('');
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
-  const [profileStatus, setProfileStatus] = useState<ProfileStatus>(ProfileStatus.NOT_FRIEND);
+  const [profileStatus, setProfileStatus] = useState<ProfileStatus>(
+    ProfileStatus.NOT_FRIEND
+  );
 
   console.log(`selectedUser`, selectedUser);
 
@@ -49,15 +51,15 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const handleAcceptFriend = () => {
     if (!user || !selectedUser.id) {
       alert('You are not logged in');
-    };
+    }
 
     acceptFriendRequestSocket(user.id, selectedUser.id);
-  }
+  };
 
   const handleAddFriend = () => {
     if (!user || !selectedUser.id) {
       alert('You are not logged in');
-    };
+    }
 
     sendFriendRequestSocket(user.id, selectedUser.id);
   };
@@ -65,9 +67,33 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
   const handleDeleteFriend = () => {
     if (!user || !selectedUser.id) {
       alert('You are not logged in');
-    };
+    }
 
-    deleteFriendSocket(user.id, selectedUser.id)
+    deleteFriendSocket(user.id, selectedUser.id);
+  };
+
+  const handleSendMassage = async () => {
+    if (!user || !selectedUser) {
+      alert('You are not logged in');
+    }
+
+    if (user.chats.find((chat) => selectedUser.chats.includes(chat))) {
+      // navigate(`/app/chats/${chatId}`);
+
+      alert('You are already have chat with this user');
+
+      return;
+    }
+
+    await dispatch(
+      createChat({
+        userId: user.id,
+        friendId: selectedUser.id,
+      })
+    );
+
+    alert('Chat created');
+    // navigate(`/app/chats/${chatId}`);
   };
 
   useEffect(() => {
@@ -83,7 +109,6 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
     } else {
       setProfileStatus(ProfileStatus.NOT_FRIEND);
     }
-
   }, [user, selectedUser]);
 
   if (!selectedUser) {
@@ -161,51 +186,61 @@ export const OthersProfileBlock: FC<ProfileBlockProps> = () => {
             />
           </div>
 
-          {profileStatus === ProfileStatus.NOT_FRIEND && (
-            <button
-              type="button"
-              className={s.save_btn}
-              onClick={handleAddFriend}
-            >
-              <p className={s.save_btn__text}>Add</p>
-            </button>
-          )}
+          <div className={s.btns__wrapper}>
+            {profileStatus === ProfileStatus.NOT_FRIEND && (
+              <button
+                type="button"
+                className={s.save_btn}
+                onClick={handleAddFriend}
+              >
+                <p className={s.save_btn__text}>Add</p>
+              </button>
+            )}
 
-          {profileStatus === ProfileStatus.FRIEND && (
-            <button
-              type="button"
-              className={s.save_btn}
-              onClick={handleDeleteFriend}
-            >
-              <p className={s.save_btn__text}>Delete friend</p>
-            </button>
-          )}
+            {profileStatus === ProfileStatus.FRIEND && (
+              <button
+                type="button"
+                className={s.save_btn}
+                onClick={handleDeleteFriend}
+                style={{ backgroundColor: 'red' }}
+              >
+                <p className={s.save_btn__text}>Delete</p>
+              </button>
+            )}
 
-          {profileStatus === ProfileStatus.FRIEND_REQUEST_SENT && (
-            <button
-              type="button"
-              className={classNames(
-                s.save_btn,
-                s.save_btn__sent_request
-              )}
-              onClick={handleAddFriend}
-              disabled
-              style={{ backgroundColor: 'gray' }}
-            >
-              <p className={s.save_btn__text}>Request sent</p>
-            </button>
-          )}
+            {profileStatus === ProfileStatus.FRIEND_REQUEST_SENT && (
+              <button
+                type="button"
+                className={classNames(s.save_btn, s.save_btn__sent_request)}
+                onClick={handleAddFriend}
+                disabled
+                style={{ backgroundColor: 'gray' }}
+              >
+                <p className={s.save_btn__text}>Request sent</p>
+              </button>
+            )}
 
-          {profileStatus === ProfileStatus.FRIEND_REQUEST_RECEIVED && (
-            <button
-              type="button"
-              className={s.save_btn}
-              onClick={handleAcceptFriend}
-              style={{ backgroundColor: '#32CD32' }}
-            >
-              <p className={s.save_btn__text}>Accept</p>
-            </button>
-          )}
+            {profileStatus === ProfileStatus.FRIEND_REQUEST_RECEIVED && (
+              <button
+                type="button"
+                className={s.save_btn}
+                onClick={handleAcceptFriend}
+                style={{ backgroundColor: '#32CD32' }}
+              >
+                <p className={s.save_btn__text}>Accept</p>
+              </button>
+            )}
+
+            {profileStatus === ProfileStatus.FRIEND && (
+              <button
+                type="button"
+                className={`${s.save_btn} ${s.save_btn__sand_massage}`}
+                onClick={handleSendMassage}
+              >
+                <p className={s.save_btn__text}>Send Massage</p>
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>
